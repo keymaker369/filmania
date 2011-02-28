@@ -18,7 +18,7 @@ public class Genre {
 	private long id;
 	@Column(name = "NAME", nullable = false)
 	private String name;
-@ManyToMany
+	@ManyToMany
 	private List<Movie> movies;
 
 	public long getId() {
