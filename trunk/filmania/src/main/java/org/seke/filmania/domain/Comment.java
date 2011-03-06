@@ -1,5 +1,6 @@
 package org.seke.filmania.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -17,28 +18,29 @@ public class Comment {
 	@Id
 	private CommentID commentId;
 
-	@ManyToOne
-	private User user;
-	@ManyToOne
-	private Movie movie;
+	// @ManyToOne
+	// private User user;
+	// @ManyToOne
+	// private Movie movie;
 	private String conntent;
 	private Date inputDate;
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
+	//
+	// public User getUser() {
+	// return user;
+	// }
+	//
+	// public void setUser(User user) {
+	// this.user = user;
+	// }
+	//
+	// public Movie getMovie() {
+	// return movie;
+	// }
+	//
+	// public void setMovie(Movie movie) {
+	// this.movie = movie;
+	// }
 
 	public String getConntent() {
 		return conntent;
@@ -65,15 +67,18 @@ public class Comment {
 	}
 
 	@Embeddable
-	public static class CommentID {
+	public static class CommentID implements Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -492862153635102131L;
 
 		@ManyToOne
-		@JoinColumn(name = "userID")
-		public long userId;
+		public User user;
 
 		@ManyToOne
-		@JoinColumn(name = "movieId")
-		public long movieId;
+		public Movie movie;
 
 	}
 
