@@ -55,6 +55,23 @@
 			<artifactId>spring-orm</artifactId>
 			<version>3.0.5.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<!-- sluzi da bih moglogao da se koristi jstl na jsp stranama -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<!-- sluzi da bih mogli da se dodaju taglib-ovi na vrh strane u jsp-u -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>filmania</finalName>
@@ -77,8 +94,8 @@
 				<configuration>
 					<!-- Log to the console. -->
 					<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
-						<!-- This doesn't do anything for Jetty, but is a workaround for a 
-							Maven bug that prevents the requestLog from being set. -->
+						<!-- This doesn't do anything for Jetty, but is a workaround for a Maven bug that prevents the 
+							requestLog from being set. -->
 						<append>true</append>
 					</requestLog>
 				</configuration>
