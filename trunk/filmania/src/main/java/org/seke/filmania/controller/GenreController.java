@@ -1,13 +1,16 @@
 package org.seke.filmania.controller;
 
+import org.seke.filmania.domain.Genre;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class GenreController {
 
 	@RequestMapping(value = "/genre/add")
-	public String openAddgenrePage() {
-		return "/genre/add";
+	public ModelAndView openAddgenrePage() {
+		Genre newGenre = new Genre();
+		return new ModelAndView("/genre/add","newGenre",newGenre);
 	}
 }
