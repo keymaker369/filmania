@@ -1,9 +1,11 @@
 package org.seke.filmania.dao;
 
+import java.util.List;
+
 import org.seke.filmania.domain.Genre;
 
 /**
- * Interface for Genre DAO
+ * DAO interface for Genre
  * 
  * @author nenad.seke
  * 
@@ -11,4 +13,9 @@ import org.seke.filmania.domain.Genre;
 public interface GenreDAO {
 
 	public void create(Genre genre);
+
+	/**
+	 * @return
+	 */
+	public List<Genre> retrieveAll();
 }
