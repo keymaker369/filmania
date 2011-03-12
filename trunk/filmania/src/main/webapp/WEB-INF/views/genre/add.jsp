@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,17 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form commandName="newGenre">
+	<sf:form action="/filmania/genre/add" modelAttribute="newGenre" method="POST">
 		<table>
 			<tr>
 				<td>name:</td>
-				<td><form:input path="name"/></td>
+				<td><sf:input path="name" />
+				</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="saveNewGenre" /></td>
+				<td><input type="submit" name="saveNewGenre" value="saveNewGenre" />
+				</td>
 			</tr>
 		</table>
-	</form:form>
+	</sf:form>
 </body>
 </html>
