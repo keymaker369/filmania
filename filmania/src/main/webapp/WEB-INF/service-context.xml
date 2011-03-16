@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<bean id="genreDAO" class="org.seke.filmania.dao.GenreDAOImpl">
@@ -8,6 +9,14 @@
 
 	<bean id="genreService" class="org.seke.filmania.service.GenreServiceImpl">
 		<property name="genreDao" ref="genreDAO" />
+	</bean>
+
+	<bean id="userDAO" class="org.seke.filmania.dao.UserDAOImpl">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="userService" class="org.seke.filmania.service.UserServiceImpl">
+		<property name="userDAO" ref="userDAO" />
 	</bean>
 
 

@@ -84,6 +84,11 @@
 			<artifactId>mockito-all</artifactId>
 			<version>1.8.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>filmania</finalName>
@@ -106,8 +111,8 @@
 				<configuration>
 					<!-- Log to the console. -->
 					<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
-						<!-- This doesn't do anything for Jetty, but is a workaround for a Maven bug that prevents the 
-							requestLog from being set. -->
+						<!-- This doesn't do anything for Jetty, but is a workaround for a 
+							Maven bug that prevents the requestLog from being set. -->
 						<append>true</append>
 					</requestLog>
 				</configuration>
