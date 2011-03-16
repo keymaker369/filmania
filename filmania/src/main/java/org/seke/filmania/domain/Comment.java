@@ -3,10 +3,12 @@ package org.seke.filmania.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,7 +24,9 @@ public class Comment {
 	// private User user;
 	// @ManyToOne
 	// private Movie movie;
+	@Column(name = "CONNTENT")
 	private String conntent;
+	@Column(name = "INPUTDATE")
 	private Date inputDate;
 
 	//
@@ -66,7 +70,7 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	@Embeddable
+	@IdClass(value = Comment.class)
 	public static class CommentID implements Serializable {
 
 		/**
