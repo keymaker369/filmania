@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -56,7 +57,7 @@ public class Rating {
 	// this.value = value;
 	// }
 
-	@Embeddable
+	@IdClass(Rating.class)
 	public static class RatingId implements Serializable {
 		/**
 		 * 
