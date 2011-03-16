@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- filmdo: treba ispraviti da ne stoji filmania-->
 	<sf:form action="/filmania/genre/add" modelAttribute="newGenre" method="POST">
 		<table>
 			<tr>
@@ -16,9 +17,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><input type="submit" name="saveNewGenre" value="saveNewGenre" />
-				</td>
+				<td/>
+				<td><input type="submit" name="saveNewGenre" value="Save" /></td>
 			</tr>
 		</table>
 	</sf:form>

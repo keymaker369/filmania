@@ -107,7 +107,7 @@
             <targetConnections>
               <net.java.amateras.uml.classdiagram.model.AssociationModel>
                 <stereoType></stereoType>
-                <fromMultiplicity>1</fromMultiplicity>
+                <fromMultiplicity>*</fromMultiplicity>
                 <toMultiplicity>*</toMultiplicity>
                 <source class="net.java.amateras.uml.classdiagram.model.ClassModel">
                   <isAbstract>false</isAbstract>
@@ -348,8 +348,8 @@
                               <stereoType></stereoType>
                               <name>Genre</name>
                               <constraint>
-                                <x>562</x>
-                                <y>458</y>
+                                <x>564</x>
+                                <y>459</y>
                                 <width>-1</width>
                                 <height>-1</height>
                               </constraint>
