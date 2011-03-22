@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 	http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.seke</groupId>
@@ -89,6 +88,11 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>3.0.5.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>filmania</finalName>
@@ -111,8 +115,7 @@
 				<configuration>
 					<!-- Log to the console. -->
 					<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
-						<!-- This doesn't do anything for Jetty, but is a workaround for a 
-							Maven bug that prevents the requestLog from being set. -->
+						<!-- This doesn't do anything for Jetty, but is a workaround for a Maven bug that prevents the requestLog from being set. -->
 						<append>true</append>
 					</requestLog>
 				</configuration>
