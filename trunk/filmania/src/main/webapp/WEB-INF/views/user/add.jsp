@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- filmdo: treba ispraviti da ne stoji filmania-->
-<sf:form action="/filmania/user/add" modelAttribute="newUser" method="POST">
+<sf:form action="../user/add" modelAttribute="newUser" method="POST">
 	<table>
 		<tr>
 			<td>Username:</td>

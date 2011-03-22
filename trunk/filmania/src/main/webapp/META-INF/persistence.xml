@@ -1,11 +1,10 @@
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-	version="1.0">
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 	<persistence-unit name="persistentObjects">
 		<class>org.seke.filmania.domain.Comment</class>
 		<class>org.seke.filmania.domain.Genre</class>
 		<class>org.seke.filmania.domain.Movie</class>
 		<class>org.seke.filmania.domain.Rating</class>
 		<class>org.seke.filmania.domain.Role</class>
-		<class>org.seke.filmania.domain.User</class> 
+		<class>org.seke.filmania.domain.User</class>
 	</persistence-unit>
 </persistence>

@@ -28,6 +28,7 @@ public class GenreDAOImpl extends JpaDaoSupport implements GenreDAO {
 	 * 
 	 * @see org.seke.filmania.dao.GenreDAO#retrieveAll()
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Genre> retrieveAll() {
 		return getJpaTemplate().find("from Genre");
 	}

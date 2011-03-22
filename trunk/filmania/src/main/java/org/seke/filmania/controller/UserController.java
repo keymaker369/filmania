@@ -22,7 +22,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/add", params = "saveNewUser", method = RequestMethod.POST)
 	public String saveNewUser(User newUser, BindingResult bindingResult) {
-		getUserService().saveUser(newUser);
+		userService.saveUser(newUser);
 		return "redirect:/index.jsp";
 	}
 

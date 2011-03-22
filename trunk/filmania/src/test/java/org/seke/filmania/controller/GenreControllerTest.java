@@ -20,7 +20,6 @@ public class GenreControllerTest {
 	private GenreService genreService;
 	private GenreController genreControllerUnderTest;
 
-	@SuppressWarnings("unused")
 	@Before
 	public void setUp() {
 		genreService = mock(GenreService.class);

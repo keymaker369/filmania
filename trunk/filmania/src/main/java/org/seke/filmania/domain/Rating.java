@@ -2,7 +2,6 @@ package org.seke.filmania.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -25,13 +24,13 @@ public class Rating {
 
 	// private int value;
 	//
-	// public RatingId getRatingId() {
-	// return ratingId;
-	// }
-	//
-	// public void setRatingId(RatingId ratingId) {
-	// this.ratingId = ratingId;
-	// }
+	 public RatingId getRatingId() {
+	 return ratingId;
+	 }
+	
+	 public void setRatingId(RatingId ratingId) {
+	 this.ratingId = ratingId;
+	 }
 
 	// public User getUser() {
 	// return user;
