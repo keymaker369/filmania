@@ -16,10 +16,11 @@
 			<td><sf:input path="name" /></td>
 		</tr>
 	</table>
-	<display:table list="${newMovie.allGenres}">
+	<display:table id="genre" list="${newMovie.allGenres}">
 		<display:column property="name" />
 		<display:column title="select one">
-			<sf:checkbox path=""/>
+			<sf:checkbox path="allGenres[${genre_rowNum - 1}].assigned"/>
+			<sf:hidden path="allGenres[${genre_rowNum - 1}].name"/>
 		</display:column>
 	</display:table>
 	<input type="submit" name="saveNewMovie" value="save" />
