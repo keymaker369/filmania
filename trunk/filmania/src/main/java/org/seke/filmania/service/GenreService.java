@@ -23,17 +23,24 @@ public interface GenreService {
 	public void saveGenre(Genre genre);
 
 	/**
-	 * Retrives all Genres.
+	 * Retrieves all Genres.
 	 * 
 	 * @return
 	 */
 	public List<Genre> getAllGenres();
 
 	/**
-	 * Retrives all GenreBeans.
+	 * Retrieves all GenreBeans.
 	 * 
 	 * @return
 	 */
 	public List<GenreBean> getAllGenreBeans();
+
+	/**
+	 * Retrieves genre for given name.
+	 * @param name
+	 * @return
+	 */
+	public Genre retrieveGenre(String name);
 
 }

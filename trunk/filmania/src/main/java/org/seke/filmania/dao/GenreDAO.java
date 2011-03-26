@@ -18,4 +18,11 @@ public interface GenreDAO {
 	 * @return
 	 */
 	public List<Genre> retrieveAll();
+
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Genre retrieve(String name);
 }

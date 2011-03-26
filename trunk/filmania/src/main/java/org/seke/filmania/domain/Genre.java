@@ -7,11 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "GENRE")
+@NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name ") })
 public class Genre {
+
+	public static final String GET_GENRE_BY_NAME = "Genre.getGenreByName";
+
 	@Id
 	@GeneratedValue
 	@Column(name = "ID", nullable = false)
