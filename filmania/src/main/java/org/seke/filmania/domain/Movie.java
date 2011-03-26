@@ -1,6 +1,6 @@
 package org.seke.filmania.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +22,7 @@ public class Movie {
 	@Column(name = "NAME")
 	private String name;
 	@Column(name = "INPUT_DATE")
-	private Date inputDate;
+	private Timestamp inputDate;
 	@Column(name = "RANK")
 	private double rank;
 	@ManyToOne
@@ -48,11 +48,11 @@ public class Movie {
 		this.name = name;
 	}
 
-	public Date getInputDate() {
+	public Timestamp getInputDate() {
 		return inputDate;
 	}
 
-	public void setInputDate(Date inputDate) {
+	public void setInputDate(Timestamp inputDate) {
 		this.inputDate = inputDate;
 	}
 

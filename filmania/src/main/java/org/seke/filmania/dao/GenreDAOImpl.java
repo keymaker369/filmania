@@ -5,6 +5,8 @@ package org.seke.filmania.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.seke.filmania.domain.Genre;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 
@@ -12,6 +14,7 @@ import org.springframework.orm.jpa.support.JpaDaoSupport;
  * @author nenad.seke
  * 
  */
+@SuppressWarnings("unchecked")
 public class GenreDAOImpl extends JpaDaoSupport implements GenreDAO {
 
 	/*
@@ -28,9 +31,20 @@ public class GenreDAOImpl extends JpaDaoSupport implements GenreDAO {
 	 * 
 	 * @see org.seke.filmania.dao.GenreDAO#retrieveAll()
 	 */
-	@SuppressWarnings("unchecked")
+
 	public List<Genre> retrieveAll() {
 		return getJpaTemplate().find("from Genre");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.seke.filmania.dao.GenreDAO#retrieve(java.lang.String)
+	 */
+	public Genre retrieve(String name) {
+		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
+
+		return (Genre) manager.createNamedQuery(Genre.GET_GENRE_BY_NAME).setParameter("name", name).getSingleResult();
 	}
 
 }

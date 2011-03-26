@@ -1,12 +1,12 @@
 package org.seke.filmania.service;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.seke.filmania.dao.GenreDAO;
 import org.seke.filmania.domain.Genre;
 import org.seke.filmania.model.GenreBean;
+import org.seke.filmania.utils.GenreUtils;
 
 /**
  * Business service for Genre.
@@ -45,16 +45,18 @@ public class GenreServiceImpl implements GenreService {
 		List<GenreBean> genreBeans = new ArrayList<GenreBean>();
 		List<Genre> genres = genreDao.retrieveAll();
 		for (Genre genre : genres) {
-			genreBeans.add(createGenreBeanFromGenre(genre));
+			genreBeans.add(GenreUtils.createGenreBeanFromGenre(genre));
 		}
 		return genreBeans;
 	}
 
-	private GenreBean createGenreBeanFromGenre(Genre genre) {
-		GenreBean genreBean = new GenreBean();
-		genreBean.setGenre(genre);
-		genreBean.setName(genre.getName());
-		return genreBean;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.seke.filmania.service.GenreService#retrieveGenre(java.lang.String)
+	 */
+	public Genre retrieveGenre(String name) {
+		return getGenreDao().retrieve(name);
 	}
 
 	public GenreDAO getGenreDao() {

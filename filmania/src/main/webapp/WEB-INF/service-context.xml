@@ -19,5 +19,13 @@
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
+	<bean id="movieDAO" class="org.seke.filmania.dao.impl.MovieDAOImpl">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean id="movieService" class="org.seke.filmania.service.impl.MovieServiceImpl">
+		<property name="movieDAO" ref="movieDAO" />
+		<property name="genreService" ref="genreService" />
+	</bean>
 
 </beans>
