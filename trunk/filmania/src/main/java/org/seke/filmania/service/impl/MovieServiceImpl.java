@@ -26,6 +26,27 @@ public class MovieServiceImpl implements MovieService {
 		getMovieDAO().create(movie);
 	}
 
+	public List<Movie> retriveAllMovies() {
+		return getMovieDAO().retriveAllMovies();
+	}
+
+	private Movie createMovieFromMovieBean(MovieBean movieBean) {
+		Movie movie = new Movie();
+		movie.setName(movieBean.getName());
+		movie.setInputDate(movieBean.getInputDate());
+		movie.setGenres(new LinkedList<Genre>());
+		for (GenreBean genreBean : movieBean.getAllGenres()) {
+			if (genreBean.isAssigned()) {
+				movie.getGenres().add(getGenreService().retrieveGenre(genreBean.getName()));
+			}
+		}
+		return movie;
+	}
+
+	public Movie retrieveMovie(long id) {
+		return getMovieDAO().retrieve(id);
+	}
+
 	public MovieDAO getMovieDAO() {
 		return movieDAO;
 	}
@@ -40,19 +61,6 @@ public class MovieServiceImpl implements MovieService {
 
 	public void setGenreService(GenreService genreService) {
 		this.genreService = genreService;
-	}
-
-	private Movie createMovieFromMovieBean(MovieBean movieBean) {
-		Movie movie = new Movie();
-		movie.setName(movieBean.getName());
-		movie.setInputDate(movieBean.getInputDate());
-		movie.setGenres(new LinkedList<Genre>());
-		for (GenreBean genreBean : movieBean.getAllGenres()) {
-			if (genreBean.isAssigned()) {
-				movie.getGenres().add(getGenreService().retrieveGenre(genreBean.getName()));
-			}
-		}
-		return movie;
 	}
 
 }
