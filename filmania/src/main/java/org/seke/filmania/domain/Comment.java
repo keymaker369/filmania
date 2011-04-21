@@ -21,8 +21,8 @@ public class Comment {
 	// private User user;
 	// @ManyToOne
 	// private Movie movie;
-	@Column(name = "CONNTENT")
-	private String conntent;
+	@Column(name = "CONTENT")
+	private String content;
 	@Column(name = "INPUTDATE")
 	private Date inputDate;
 
@@ -43,12 +43,12 @@ public class Comment {
 	// this.movie = movie;
 	// }
 
-	public String getConntent() {
-		return conntent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setConntent(String conntent) {
-		this.conntent = conntent;
+	public void setContent(String conntent) {
+		this.content = conntent;
 	}
 
 	public Date getInputDate() {
