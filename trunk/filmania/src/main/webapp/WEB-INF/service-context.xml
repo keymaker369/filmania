@@ -3,19 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="genreDAO" class="org.seke.filmania.dao.GenreDAOImpl">
+	<bean id="genreDAO" class="org.seke.filmania.dao.impl.GenreDAOImpl">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<bean id="genreService" class="org.seke.filmania.service.GenreServiceImpl">
+	<bean id="genreService" class="org.seke.filmania.service.impl.GenreServiceImpl">
 		<property name="genreDao" ref="genreDAO" />
 	</bean>
 
-	<bean id="userDAO" class="org.seke.filmania.dao.UserDAOImpl">
+	<bean id="userDAO" class="org.seke.filmania.dao.impl.UserDAOImpl">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<bean id="userService" class="org.seke.filmania.service.UserServiceImpl">
+	<bean id="userService" class="org.seke.filmania.service.impl.UserServiceImpl">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
@@ -26,6 +26,12 @@
 	<bean id="movieService" class="org.seke.filmania.service.impl.MovieServiceImpl">
 		<property name="movieDAO" ref="movieDAO" />
 		<property name="genreService" ref="genreService" />
+	</bean>
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" >
+		<property name="service" ref="genreService"/>
+		<property name="serviceName" value="GenreWebService"/>
+		<property name="serviceInterface" value="org.seke.filmania.service.GenreService"/>
 	</bean>
 
 </beans>

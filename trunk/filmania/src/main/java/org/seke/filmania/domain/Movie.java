@@ -5,16 +5,22 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "MOVIE")
+@NamedQueries({ @NamedQuery(name = Movie.GET_All_MOVIES, query = "from Movie m ") })
 public class Movie {
+
+	public static final String GET_All_MOVIES = "Movie.getAllMovies";
 
 	@Id
 	@GeneratedValue
@@ -27,9 +33,9 @@ public class Movie {
 	private double rank;
 	@ManyToOne
 	private User user;
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Comment> comments;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Genre> genres;
 
 	public long getId() {

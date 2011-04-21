@@ -19,7 +19,7 @@
 			<td><sf:input path="password" /></td>
 		</tr>
 		<tr>
-			<td>First name:</td>
+			<td>email:</td>
 			<td><sf:input path="email" /></td>
 		</tr>
 		<tr>

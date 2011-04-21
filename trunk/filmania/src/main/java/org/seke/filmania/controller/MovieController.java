@@ -1,7 +1,9 @@
 package org.seke.filmania.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import org.seke.filmania.domain.Movie;
 import org.seke.filmania.model.MovieBean;
 import org.seke.filmania.service.GenreService;
 import org.seke.filmania.service.MovieService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -37,6 +40,18 @@ public class MovieController {
 		movieBean.setInputDate(new Timestamp(System.currentTimeMillis()));
 		getMovieService().saveMovie(movieBean);
 		return new ModelAndView("redirect:/movie/add", "newMovie", movieBean);
+	}
+
+	@RequestMapping(value = "/movie/view")
+	public ModelAndView viewMovie(@RequestParam(value = "id") String id) {
+		Movie movie = getMovieService().retrieveMovie(Long.parseLong(id));
+		return new ModelAndView("/movie/view", "movie", movie);
+	}
+
+	@RequestMapping(value = "/movie/movies")
+	public ModelAndView openShowAllMoviesPage() {
+		List<Movie> movies = getMovieService().retriveAllMovies();
+		return new ModelAndView("/movie/movies", "movies", movies);
 	}
 
 	public GenreService getGenreService() {

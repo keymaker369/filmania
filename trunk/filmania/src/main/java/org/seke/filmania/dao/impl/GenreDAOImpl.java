@@ -1,12 +1,13 @@
 /**
  * 
  */
-package org.seke.filmania.dao;
+package org.seke.filmania.dao.impl;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.seke.filmania.dao.GenreDAO;
 import org.seke.filmania.domain.Genre;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 

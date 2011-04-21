@@ -1,5 +1,6 @@
-package org.seke.filmania.dao;
+package org.seke.filmania.dao.impl;
 
+import org.seke.filmania.dao.UserDAO;
 import org.seke.filmania.domain.User;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 
