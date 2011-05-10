@@ -1,54 +1,68 @@
 package org.seke.filmania.domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GENRE")
+@Table(name = "genre", catalog = "filmania")
 @NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name ") })
 public class Genre {
 
 	public static final String GET_GENRE_BY_NAME = "Genre.getGenreByName";
 
-	@Id
-	@GeneratedValue
-	@Column(name = "ID", nullable = false)
-	private long id;
-	@Column(name = "NAME", nullable = false)
+	private Integer id;
 	private String name;
-	@ManyToMany
-	private List<Movie> movies;
+	private Set<Movie> movies = new HashSet<Movie>(0);
 
-	public long getId() {
-		return id;
+	public Genre() {
 	}
 
-	public void setId(long id) {
+	public Genre(String name, Set<Movie> movies) {
+		this.name = name;
+		this.movies = movies;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	@Column(name = "NAME", length = 20)
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public List<Movie> getMovies() {
-		return movies;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "movie_genre", catalog = "filmania", joinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) })
+	public Set<Movie> getMovies() {
+		return this.movies;
 	}
 
-	public void setMovies(List<Movie> movies) {
+	public void setMovies(Set<Movie> movies) {
 		this.movies = movies;
 	}
-
 }
