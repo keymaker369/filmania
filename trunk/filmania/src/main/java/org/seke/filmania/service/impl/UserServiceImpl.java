@@ -10,11 +10,18 @@ public class UserServiceImpl implements UserService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.seke.filmania.service.UserService#saveUser(org.seke.filmania.domain.User)
 	 */
 	public void saveUser(User user) {
 		getUserDAO().create(user);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.seke.filmania.service.UserService#retrieveUser(int)
+	 */
+	public User retrieveUser(int id) {
+		return getUserDAO().getUser(id);
 	}
 
 	public UserDAO getUserDAO() {

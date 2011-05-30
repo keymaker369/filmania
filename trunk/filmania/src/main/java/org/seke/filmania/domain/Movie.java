@@ -27,12 +27,32 @@ public class Movie {
 
 	public static final String GET_All_MOVIES = "Movie.getAllMovies";
 
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	private long id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false)
 	private User user;
+	
+	@Column(name = "NAME", length = 20)
 	private String name;
-	private Date inputdate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "INPUTDATE", length = 19)
+	private Date inputDate;
+	
+	@Column(name = "RANK", precision = 22, scale = 0)
 	private Double rank;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<Comment> comments = new HashSet<Comment>(0);
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "movie_genre", catalog = "filmania", 
+			joinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) })
 	private Set<Genre> genres = new HashSet<Genre>(0);
 
 	public Movie() {
@@ -42,28 +62,23 @@ public class Movie {
 		this.user = user;
 	}
 
-	public Movie(User user, String name, Date inputdate, Double rank, Set<Comment> comments, Set<Genre> genres) {
+	public Movie(User user, String name, Date inputDate, Double rank, Set<Comment> comments, Set<Genre> genres) {
 		this.user = user;
 		this.name = name;
-		this.inputdate = inputdate;
+		this.inputDate = inputDate;
 		this.rank = rank;
 		this.comments = comments;
 		this.genres = genres;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
 	public User getUser() {
 		return this.user;
 	}
@@ -72,7 +87,6 @@ public class Movie {
 		this.user = user;
 	}
 
-	@Column(name = "NAME", length = 20)
 	public String getName() {
 		return this.name;
 	}
@@ -81,17 +95,14 @@ public class Movie {
 		this.name = name;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "INPUTDATE", length = 19)
-	public Date getInputdate() {
-		return this.inputdate;
+	public Date getInputDate() {
+		return this.inputDate;
 	}
 
-	public void setInputdate(Date inputdate) {
-		this.inputdate = inputdate;
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
 	}
 
-	@Column(name = "RANK", precision = 22, scale = 0)
 	public Double getRank() {
 		return this.rank;
 	}
@@ -100,7 +111,6 @@ public class Movie {
 		this.rank = rank;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	public Set<Comment> getComments() {
 		return this.comments;
 	}
@@ -109,10 +119,6 @@ public class Movie {
 		this.comments = comments;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "movie_genre", catalog = "filmania", 
-			joinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) })
 	public Set<Genre> getGenres() {
 		return this.genres;
 	}

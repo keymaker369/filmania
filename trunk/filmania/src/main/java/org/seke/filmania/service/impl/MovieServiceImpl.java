@@ -34,13 +34,14 @@ public class MovieServiceImpl implements MovieService {
 	private Movie createMovieFromMovieBean(MovieBean movieBean) {
 		Movie movie = new Movie();
 		movie.setName(movieBean.getName());
-		movie.setInputdate(new Date(movieBean.getInputDate().getTime()));
+		movie.setInputDate(new Date(movieBean.getInputDate().getTime()));
 		movie.setGenres(new HashSet<Genre>());
 		for (GenreBean genreBean : movieBean.getAllGenres()) {
 			if (genreBean.isAssigned()) {
 				movie.getGenres().add(getGenreService().retrieveGenre(genreBean.getName()));
 			}
 		}
+		movie.setUser(movieBean.getUser());
 		return movie;
 	}
 
