@@ -17,13 +17,29 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "comment", catalog = "filmania")
-public class Comment implements java.io.Serializable {
+public class Comment implements Serializable {
 
+	@EmbeddedId
+	@AttributeOverrides({ 
+		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
+		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
+		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
 	private CommentId id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	private User user;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
 	private Movie movie;
+	
+	@Column(name = "CONTENT")
 	private String content;
-	private Date inputdate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "INPUTDATE", length = 19)
+	private Date inputDate;
 
 	public Comment() {
 	}
@@ -34,19 +50,14 @@ public class Comment implements java.io.Serializable {
 		this.movie = movie;
 	}
 
-	public Comment(CommentId id, User user, Movie movie, String content, Date inputdate) {
+	public Comment(CommentId id, User user, Movie movie, String content, Date inputDate) {
 		this.id = id;
 		this.user = user;
 		this.movie = movie;
 		this.content = content;
-		this.inputdate = inputdate;
+		this.inputDate = inputDate;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({ 
-		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
-		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
-		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
 	public CommentId getId() {
 		return this.id;
 	}
@@ -54,9 +65,7 @@ public class Comment implements java.io.Serializable {
 	public void setId(CommentId id) {
 		this.id = id;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+	
 	public User getUser() {
 		return this.user;
 	}
@@ -64,9 +73,7 @@ public class Comment implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
+	
 	public Movie getMovie() {
 		return this.movie;
 	}
@@ -75,7 +82,6 @@ public class Comment implements java.io.Serializable {
 		this.movie = movie;
 	}
 
-	@Column(name = "CONTENT")
 	public String getContent() {
 		return this.content;
 	}
@@ -83,15 +89,13 @@ public class Comment implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "INPUTDATE", length = 19)
-	public Date getInputdate() {
-		return this.inputdate;
+	
+	public Date getInputDate() {
+		return this.inputDate;
 	}
 
-	public void setInputdate(Date inputdate) {
-		this.inputdate = inputdate;
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
 	}
 
 }

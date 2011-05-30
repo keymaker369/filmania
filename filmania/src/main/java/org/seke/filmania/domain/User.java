@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +26,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "user", catalog = "filmania")
+@NamedQueries({ @NamedQuery(name = User.GET_USER_BY_ID, query = "Select u from User u where u.id= :id ") })
 public class User implements UserDetails {
+	
+	public static final String GET_USER_BY_ID = "User.getUserById";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

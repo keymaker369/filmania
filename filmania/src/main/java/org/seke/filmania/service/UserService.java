@@ -10,4 +10,10 @@ public interface UserService {
 	 */
 	@Transactional
 	public void saveUser(User user);
+	
+	/**
+	 * Retrieve user for given id.
+	 * @param id
+	 */
+	public User retrieveUser(int id);
 }

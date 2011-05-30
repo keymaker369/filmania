@@ -44,7 +44,6 @@ public class GenreDAOImpl extends JpaDaoSupport implements GenreDAO {
 	 */
 	public Genre retrieve(String name) {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
-
 		return (Genre) manager.createNamedQuery(Genre.GET_GENRE_BY_NAME).setParameter("name", name).getSingleResult();
 	}
 
