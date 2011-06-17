@@ -3,12 +3,12 @@ create table filmania.ROLE (
 	ID int NOT NULL AUTO_INCREMENT,
 	NAME VARCHAR(20),
 	PRIMARY KEY (ID)	
-)
+);
 
 create table filmania.GENRE (
 	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	NAME VARCHAR(20)
-)
+);
 
 create table filmania.USER (
 	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -19,7 +19,7 @@ create table filmania.USER (
 	ACCOUNTNONLOCKED BOOL,
 	CREDINTIALSNONEXPIRED BOOL,
 	ENABLED BOOL
-)
+);
 
 create table filmania.USER_ROLE(
 	USER_ID int NOT NULL,
@@ -37,7 +37,7 @@ create table filmania.USER_ROLE(
 	    	REFERENCES ROLE (ID)
 	    	ON DELETE NO ACTION
     		ON UPDATE NO ACTION
-)
+);
 
 create table filmania.MOVIE (
 	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -51,7 +51,7 @@ create table filmania.MOVIE (
 	    	REFERENCES USER (ID)
 	    	ON DELETE NO ACTION
     		ON UPDATE NO ACTION
-)
+);
 
 create table filmania.MOVIE_GENRE (
 	GENRE_ID int NOT NULL,
@@ -69,7 +69,7 @@ create table filmania.MOVIE_GENRE (
 	    	REFERENCES MOVIE (ID)
 	    	ON DELETE NO ACTION
     		ON UPDATE NO ACTION
-)
+);
 
 create table filmania.COMMENT (
 	CONTENT LONGTEXT,
@@ -89,4 +89,4 @@ create table filmania.COMMENT (
 	    	REFERENCES MOVIE (ID)
 	    	ON DELETE NO ACTION
     		ON UPDATE NO ACTION
-)
+);
