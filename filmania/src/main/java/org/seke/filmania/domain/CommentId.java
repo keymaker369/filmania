@@ -1,5 +1,7 @@
 package org.seke.filmania.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -7,7 +9,7 @@ import javax.persistence.Embeddable;
  * Composite id for Comment object.
  */
 @Embeddable
-public class CommentId implements java.io.Serializable {
+public class CommentId implements Serializable {
 
 	private int id;
 	private int userId;

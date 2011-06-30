@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "comment", catalog = "filmania")
+@Table(name = "COMMENT", catalog = "filmania")
 public class Comment implements Serializable {
 
 	@EmbeddedId

@@ -25,7 +25,7 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "user", catalog = "filmania")
+@Table(name = "USER", catalog = "filmania")
 @NamedQueries({ @NamedQuery(name = User.GET_USER_BY_ID, query = "Select u from User u where u.id= :id ") })
 public class User implements UserDetails {
 	

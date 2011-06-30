@@ -18,7 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "genre", catalog = "filmania")
+@Table(name = "GENRE", catalog = "filmania")
 @NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name ") })
 public class Genre {
 
