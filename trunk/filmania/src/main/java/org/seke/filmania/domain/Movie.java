@@ -50,7 +50,7 @@ public class Movie {
 	private Set<Comment> comments = new HashSet<Comment>(0);
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "movie_genre", catalog = "filmania", 
+	@JoinTable(name = "MOVIE_GENRE", catalog = "filmania", 
 			joinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) })
 	private Set<Genre> genres = new HashSet<Genre>(0);
