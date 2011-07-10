@@ -19,6 +19,11 @@ import javax.persistence.TemporalType;
 @Table(name = "COMMENT", catalog = "filmania")
 public class Comment implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8524802817720830386L;
+
 	@EmbeddedId
 	@AttributeOverrides({ 
 		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 

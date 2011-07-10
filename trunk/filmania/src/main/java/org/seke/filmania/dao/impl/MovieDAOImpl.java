@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seke.filmania.dao.MovieDAO;
-import org.seke.filmania.domain.Genre;
 import org.seke.filmania.domain.Movie;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 
