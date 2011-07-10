@@ -11,6 +11,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CommentId implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -275636493390380334L;
 	private int id;
 	private int userId;
 	private int movieId;

@@ -18,6 +18,10 @@ import javax.persistence.JoinColumn;
 @Table(name = "role", catalog = "filmania")
 public class Role implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5812392209179006304L;
 	private Integer id;
 	private String name;
 	private Set<User> users = new HashSet<User>(0);

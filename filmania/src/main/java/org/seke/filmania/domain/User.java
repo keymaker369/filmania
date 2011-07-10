@@ -3,7 +3,6 @@ package org.seke.filmania.domain;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,52 +27,57 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "USER", catalog = "filmania")
 @NamedQueries({ @NamedQuery(name = User.GET_USER_BY_ID, query = "Select u from User u where u.id= :id ") })
 public class User implements UserDetails {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8168229513942647693L;
+
 	public static final String GET_USER_BY_ID = "User.getUserById";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
 	private int id;
-	
+
 	@Column(name = "USERNAME", length = 20)
 	private String username;
-	
+
 	@Column(name = "PASSWORD", length = 20)
 	private String password;
-	
+
 	@Column(name = "EMAIL", length = 20)
 	private String email;
-	
+
 	@Column(name = "ACCOUNTNONEXPIRED")
 	private boolean accountNonExpired;
-	
+
 	@Column(name = "ACCOUNTNONLOCKED")
 	private boolean accountNonLocked;
-	
+
 	@Column(name = "CREDINTIALSNONEXPIRED")
 	private boolean credintialsNonExpired;
-	
+
 	@Column(name = "ENABLED")
 	private boolean enabled;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Comment> comments = new HashSet<Comment>(0);
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Movie> movies = new HashSet<Movie>(0);
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_role", catalog = "filmania", 
-						joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, 
-						inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
+	@JoinTable(name = "user_role", catalog = "filmania", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
 	private Set<Role> roles = new HashSet<Role>(0);
 
 	public User() {
 	}
 
-	public User(String username, String password, String email, Boolean accountnonexpired, Boolean accountnonlocked, Boolean credintialsnonexpired, Boolean enabled, Set<Comment> comments,
-			Set<Movie> movies, Set<Role> roles) {
+	public User(String username, String password, String email,
+			Boolean accountnonexpired, Boolean accountnonlocked,
+			Boolean credintialsnonexpired, Boolean enabled,
+			Set<Comment> comments, Set<Movie> movies, Set<Role> roles) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -94,7 +98,6 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
-	
 	public String getUsername() {
 		return this.username;
 	}
@@ -103,7 +106,6 @@ public class User implements UserDetails {
 		this.username = username;
 	}
 
-	
 	public String getPassword() {
 		return this.password;
 	}
@@ -112,7 +114,6 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	
 	public String getEmail() {
 		return this.email;
 	}
@@ -121,7 +122,6 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
 	}
@@ -130,7 +130,6 @@ public class User implements UserDetails {
 		this.accountNonExpired = accountnonexpired;
 	}
 
-	
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
@@ -139,7 +138,6 @@ public class User implements UserDetails {
 		this.accountNonLocked = accountnonlocked;
 	}
 
-	
 	public boolean isCredentialsNonExpired() {
 		return credintialsNonExpired;
 	}
@@ -148,7 +146,6 @@ public class User implements UserDetails {
 		this.credintialsNonExpired = credintialsnonexpired;
 	}
 
-	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -157,7 +154,6 @@ public class User implements UserDetails {
 		this.enabled = enabled;
 	}
 
-	
 	public Set<Comment> getComments() {
 		return comments;
 	}
@@ -166,7 +162,6 @@ public class User implements UserDetails {
 		this.comments = comments;
 	}
 
-	
 	public Set<Movie> getMovies() {
 		return movies;
 	}
@@ -175,7 +170,6 @@ public class User implements UserDetails {
 		this.movies = movies;
 	}
 
-	
 	public Set<Role> getRoles() {
 		return roles;
 	}

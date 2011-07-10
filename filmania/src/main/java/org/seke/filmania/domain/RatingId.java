@@ -10,6 +10,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class RatingId implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6463109255344237145L;
 	private int id;
 	private int userId;
 	private int movieId;
