@@ -1,5 +1,7 @@
 package org.seke.filmania.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.seke.filmania.dao.UserDAO;
@@ -31,5 +33,15 @@ public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
 		return (User) manager.createNamedQuery(User.GET_USER_BY_ID).setParameter("id", id).getSingleResult();
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.seke.filmania.dao.UserDAO#getAllUsers()
+	 */
+	public List<User> getAllUsers() {
+		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
+		return getJpaTemplate().findByNamedQuery(User.GET_All_USERS);
+	}
+
 
 }

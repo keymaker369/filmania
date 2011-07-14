@@ -1,5 +1,7 @@
 package org.seke.filmania.dao;
 
+import java.util.List;
+
 import org.seke.filmania.domain.User;
 
 /**
@@ -22,5 +24,10 @@ public interface UserDAO {
 	 * @return
 	 */
 	public User getUser(int id);
+
+	/**
+	 * Retrieves all users from database.
+	 */
+	public List<User> getAllUsers();
 
 }

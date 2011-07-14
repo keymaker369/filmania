@@ -23,9 +23,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@NamedQueries({ @NamedQuery(name = User.GET_USER_BY_ID, 
+							query = "Select u " +
+									"from User u " +
+									"where u.id= :id "),
+				
+	@NamedQuery(name = User.GET_All_USERS, 
+				query = "Select u " +
+						"from User u") })
+
 @Entity
 @Table(name = "USER", catalog = "filmania")
-@NamedQueries({ @NamedQuery(name = User.GET_USER_BY_ID, query = "Select u from User u where u.id= :id ") })
 public class User implements UserDetails {
 
 	/**
@@ -34,6 +42,8 @@ public class User implements UserDetails {
 	private static final long serialVersionUID = 8168229513942647693L;
 
 	public static final String GET_USER_BY_ID = "User.getUserById";
+
+	public static final String GET_All_USERS = "User.getAllUsers";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
