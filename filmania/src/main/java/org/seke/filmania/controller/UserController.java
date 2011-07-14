@@ -1,5 +1,7 @@
 package org.seke.filmania.controller;
 
+import java.util.List;
+
 import org.seke.filmania.domain.User;
 import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,15 @@ public class UserController {
 
 	@RequestMapping(value = "/user/add", params = "saveNewUser", method = RequestMethod.POST)
 	public String saveNewUser(User newUser, BindingResult bindingResult) {
-		userService.saveUser(newUser);
+		getUserService().saveUser(newUser);
 		return "redirect:/index.jsp";
+	}
+
+	@RequestMapping(value = "/user/viewUsers", method = RequestMethod.GET)
+	public ModelAndView viewUsers() {
+		List<User> users = getUserService().retrieveAllUsers();
+		ModelAndView mav = new ModelAndView("/user/users", "users", users);
+		return mav;
 	}
 
 	public UserService getUserService() {

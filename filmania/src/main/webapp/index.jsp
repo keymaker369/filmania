@@ -12,6 +12,8 @@
 	<a href="<c:url value="/genre/view"/>"> view genres</a>
 	<br />
 	<a href="<c:url value="/user/add"/>"> add user</a>
+	<br />
+	<a href="<c:url value="/user/viewUsers"/>"> view users</a>
 	
 </body>
 </html>
