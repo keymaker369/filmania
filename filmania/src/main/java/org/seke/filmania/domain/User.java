@@ -28,9 +28,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 									"from User u " +
 									"where u.id= :id "),
 				
-	@NamedQuery(name = User.GET_All_USERS, 
-				query = "Select u " +
-						"from User u") })
+				@NamedQuery(name = User.GET_All_USERS, 
+							query = "Select u " +
+									"from User u"),
+									
+				@NamedQuery(name = User.GET_USER_BY_USERNAME, 
+							query = "Select u " +
+									"from User u " +
+									"where u.username= :username") })
 
 @Entity
 @Table(name = "USER", catalog = "filmania")
@@ -44,6 +49,8 @@ public class User implements UserDetails {
 	public static final String GET_USER_BY_ID = "User.getUserById";
 
 	public static final String GET_All_USERS = "User.getAllUsers";
+
+	public static final String GET_USER_BY_USERNAME = "User.getUserByUsername";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,7 +73,7 @@ public class User implements UserDetails {
 	private boolean accountNonLocked;
 
 	@Column(name = "CREDINTIALSNONEXPIRED")
-	private boolean credintialsNonExpired;
+	private boolean credentialsNonExpired;
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
@@ -84,32 +91,16 @@ public class User implements UserDetails {
 	public User() {
 	}
 
-	public User(String username, String password, String email,
-			Boolean accountnonexpired, Boolean accountnonlocked,
-			Boolean credintialsnonexpired, Boolean enabled,
-			Set<Comment> comments, Set<Movie> movies, Set<Role> roles) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.accountNonExpired = accountnonexpired;
-		this.accountNonLocked = accountnonlocked;
-		this.credintialsNonExpired = credintialsnonexpired;
-		this.enabled = enabled;
-		this.comments = comments;
-		this.movies = movies;
-		this.roles = roles;
+	public int getId() {
+		return id;
 	}
 
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
 	public void setUsername(String username) {
@@ -117,7 +108,7 @@ public class User implements UserDetails {
 	}
 
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
 
 	public void setPassword(String password) {
@@ -125,7 +116,7 @@ public class User implements UserDetails {
 	}
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
 
 	public void setEmail(String email) {
@@ -136,31 +127,31 @@ public class User implements UserDetails {
 		return accountNonExpired;
 	}
 
-	public void setAccountNonExpired(Boolean accountnonexpired) {
-		this.accountNonExpired = accountnonexpired;
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
 	}
 
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
 
-	public void setAccountNonLocked(Boolean accountnonlocked) {
-		this.accountNonLocked = accountnonlocked;
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
 	}
 
 	public boolean isCredentialsNonExpired() {
-		return credintialsNonExpired;
+		return credentialsNonExpired;
 	}
 
-	public void setCredintialsNonExpired(Boolean credintialsnonexpired) {
-		this.credintialsNonExpired = credintialsnonexpired;
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 

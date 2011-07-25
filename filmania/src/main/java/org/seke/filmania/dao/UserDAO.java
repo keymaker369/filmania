@@ -29,5 +29,18 @@ public interface UserDAO {
 	 * Retrieves all users from database.
 	 */
 	public List<User> getAllUsers();
+	
+	/**
+	 * Retrieves user for given username. 
+	 * @param id
+	 * @return
+	 */
+	public User getUser(String username);
+	
+	/**
+	 * Updates users data.
+	 * @param user
+	 */
+	public void updateUser(User user);
 
 }
