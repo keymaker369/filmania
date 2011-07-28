@@ -36,4 +36,10 @@ public interface UserService {
 	 * @param user
 	 */
 	public void updateUser(User user);
+
+	/**
+	 * Delete user from database for given username.
+	 * @param user
+	 */
+	public void deleteUser(String username);
 }

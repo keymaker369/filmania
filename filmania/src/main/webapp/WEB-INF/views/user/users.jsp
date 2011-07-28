@@ -55,6 +55,9 @@
 		<display:column>
 			<a href='<c:url value="/user/edit?username=${user.username}"/>'>edit</a>
 		</display:column>
+				<display:column>
+			<a href='<c:url value="/user/deleteUser?username=${user.username}"/>'>delete</a>
+		</display:column>
 	</display:table>
 
 </body>
