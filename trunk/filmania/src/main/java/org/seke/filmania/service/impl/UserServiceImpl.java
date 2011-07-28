@@ -57,6 +57,15 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(User user) {
 		getUserDAO().updateUser(user);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.seke.filmania.service.UserService#deleteUser(java.lang.String)
+	 */
+	@Transactional
+	public void deleteUser(String username) {
+		getUserDAO().deleteUser(username);
+	}
 	
 	public UserDAO getUserDAO() {
 		return userDAO;
@@ -65,5 +74,7 @@ public class UserServiceImpl implements UserService {
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
+
+	
 
 }

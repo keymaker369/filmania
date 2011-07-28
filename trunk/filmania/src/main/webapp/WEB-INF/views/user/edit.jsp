@@ -9,8 +9,8 @@
 </head>
 <body>
 	<sf:form action="/filmania/user/edit" modelAttribute="user" method="POST">
-	
-	<table>
+		<sf:hidden path="id"/>
+		<table>
 			<tr>
 				<td>Username:</td>
 				<td><sf:input path="username" /></td>

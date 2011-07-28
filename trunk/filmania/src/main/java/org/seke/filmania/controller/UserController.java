@@ -50,6 +50,18 @@ public class UserController {
 		getUserService().updateUser(user);
 		return "redirect:/index.jsp";
 	}
+
+	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET, params = "username")
+	public ModelAndView loadDeleteUserPage(@RequestParam("username") String username){
+		User userToDelete = getUserService().retrieveUser(username);
+		return new ModelAndView("/user/deleteUser", "user", userToDelete);
+	}
+	
+	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.POST, params = "delete")
+	public String deleteUser(@RequestParam("username") String username){
+		getUserService().deleteUser(username);
+		return "redirect:/user/users";
+	}
 	
 	public UserService getUserService() {
 		return userService;

@@ -35,7 +35,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 				@NamedQuery(name = User.GET_USER_BY_USERNAME, 
 							query = "Select u " +
 									"from User u " +
-									"where u.username= :username") })
+									"where u.username= :username"),
+				@NamedQuery(name = User.DELETE_USER_BY_USERNAME, 
+						query = "delete " +
+								"from User u " +
+								"where u.username= :username")})
 
 @Entity
 @Table(name = "USER", catalog = "filmania")
@@ -51,6 +55,8 @@ public class User implements UserDetails {
 	public static final String GET_All_USERS = "User.getAllUsers";
 
 	public static final String GET_USER_BY_USERNAME = "User.getUserByUsername";
+
+	public static final String DELETE_USER_BY_USERNAME = "User.deleteUserByUsername";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,7 +91,7 @@ public class User implements UserDetails {
 	private Set<Movie> movies = new HashSet<Movie>(0);
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_role", catalog = "filmania", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
+	@JoinTable(name = "USER_ROLE", catalog = "filmania", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
 	private Set<Role> roles = new HashSet<Role>(0);
 
 	public User() {

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.seke.filmania.dao.UserDAO;
 import org.seke.filmania.domain.User;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -14,7 +15,7 @@ import org.springframework.orm.jpa.support.JpaDaoSupport;
  * 
  */
 public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,14 +37,17 @@ public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.seke.filmania.dao.UserDAO#getAllUsers()
 	 */
 	public List<User> getAllUsers() {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
 		return getJpaTemplate().findByNamedQuery(User.GET_All_USERS);
 	}
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.seke.filmania.dao.UserDAO#getUser(java.lang.String)
 	 */
 	public User getUser(String username) {
@@ -51,9 +55,25 @@ public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
 		return (User) manager.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username).getSingleResult();
 	}
 
-	public void updateUser(User user){
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.seke.filmania.dao.UserDAO#updateUser(org.seke.filmania.domain.User)
+	 */
+	public void updateUser(User user) {
 		getJpaTemplate().merge(user);
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.seke.filmania.dao.UserDAO#deleteUser(java.lang.String)
+	 */
+	public void deleteUser(String username) {
+		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
+		User user = (User) manager.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username).getSingleResult();
+		getJpaTemplate().remove(user);
+	}
 
 }
