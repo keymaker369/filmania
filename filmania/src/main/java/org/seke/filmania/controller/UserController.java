@@ -60,7 +60,7 @@ public class UserController {
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.POST, params = "delete")
 	public String deleteUser(@RequestParam("username") String username){
 		getUserService().deleteUser(username);
-		return "redirect:/user/users";
+		return "redirect:/user/viewUsers";
 	}
 	
 	public UserService getUserService() {

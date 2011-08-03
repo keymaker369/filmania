@@ -3,9 +3,12 @@ package org.seke.filmania.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 import org.seke.filmania.dao.UserDAO;
 import org.seke.filmania.domain.User;
+import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,8 +75,11 @@ public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
 	 */
 	public void deleteUser(String username) {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
-		User user = (User) manager.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username).getSingleResult();
+		User user = (User)manager.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username).getSingleResult();
+		user = getJpaTemplate().find(User.class, user.getId());
 		getJpaTemplate().remove(user);
 	}
 
+	
+	
 }

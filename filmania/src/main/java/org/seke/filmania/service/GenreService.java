@@ -43,4 +43,11 @@ public interface GenreService {
 	 */
 	public Genre retrieveGenre(String name);
 
+	/**
+	 * Updates genre.
+	 * 
+	 * @param genre
+	 */
+	public void updateGenre(Genre genre);
+
 }

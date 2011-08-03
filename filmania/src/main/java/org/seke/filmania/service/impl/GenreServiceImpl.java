@@ -8,6 +8,7 @@ import org.seke.filmania.domain.Genre;
 import org.seke.filmania.model.GenreBean;
 import org.seke.filmania.service.GenreService;
 import org.seke.filmania.utils.GenreUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Business service for Genre.
@@ -60,6 +61,16 @@ public class GenreServiceImpl implements GenreService {
 		return getGenreDao().retrieve(name);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.seke.filmania.service.GenreService#updateGenre(org.seke.filmania.domain.Genre)
+	 */
+	
+	@Transactional
+	public void updateGenre(Genre genre) {
+		getGenreDao().updateGenre(genre);
+	}
+
 	public GenreDAO getGenreDao() {
 		return genreDao;
 	}
@@ -67,4 +78,6 @@ public class GenreServiceImpl implements GenreService {
 	public void setGenreDao(GenreDAO genreDao) {
 		this.genreDao = genreDao;
 	}
+
+
 }

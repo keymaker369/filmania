@@ -9,7 +9,7 @@
 	<br />
 	<a href="<c:url value="/genre/add"/>"> add genre</a>
 	<br />
-	<a href="<c:url value="/genre/view"/>"> view genres</a>
+	<a href="<c:url value="/genre/genres"/>"> view genres</a>
 	<br />
 	<a href="<c:url value="/user/add"/>"> add user</a>
 	<br />

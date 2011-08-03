@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<display:table list="${genres}">
+	<display:table id="genre" list="${genres}">
 		<display:column property="name" />
+		<display:column><a href="/filmania/genre/editGenre?name=${genre.name}">edit</a></display:column>
 	</display:table>
 </body>
 </html>

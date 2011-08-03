@@ -47,4 +47,8 @@ public class GenreDAOImpl extends JpaDaoSupport implements GenreDAO {
 		return (Genre) manager.createNamedQuery(Genre.GET_GENRE_BY_NAME).setParameter("name", name).getSingleResult();
 	}
 
+	public void updateGenre(Genre genre) {
+		getJpaTemplate().merge(genre);
+	}
+
 }
