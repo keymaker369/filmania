@@ -8,7 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<sf:form action="/filmania/genre/add" modelAttribute="newGenre" method="POST">
+	<sf:form action="/filmania/genre/editGenre" modelAttribute="genre" method="POST">
+		<sf:hidden path="id"/>
 		<table>
 			<tr>
 				<td>name:</td>
@@ -17,7 +18,7 @@
 			</tr>
 			<tr>
 				<td/>
-				<td><input type="submit" name="saveNewGenre" value="Save" /></td>
+				<td><input type="submit" name="updateGenre" value="Update" /></td>
 			</tr>
 		</table>
 	</sf:form>
