@@ -34,4 +34,6 @@ public interface MovieService {
 	 */
 	public Movie retrieveMovie(long id);
 
+	public List<Movie> retrieveMoviesStartingWith(String movieName);
+
 }

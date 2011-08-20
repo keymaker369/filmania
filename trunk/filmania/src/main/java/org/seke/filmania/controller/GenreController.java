@@ -28,7 +28,7 @@ public class GenreController {
 	@RequestMapping(value = "/genre/add", params = "saveNewGenre", method = RequestMethod.POST)
 	public String saveNewGenre(Genre newGenre, BindingResult bindingResult) {
 		genreService.saveGenre(newGenre);
-		return "redirect:/genre/add";
+		return "redirect:/genre/genres";
 	}
 
 	@RequestMapping(value = "/genre/genres")

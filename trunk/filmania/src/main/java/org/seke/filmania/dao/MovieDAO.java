@@ -17,7 +17,7 @@ public interface MovieDAO {
 	 * 
 	 * @param movie
 	 */
-	public void create(Movie movie);
+	public void save(Movie movie);
 
 	/**
 	 * Retrieves all movies from repository.
@@ -33,4 +33,6 @@ public interface MovieDAO {
 	 * @return
 	 */
 	public Movie retrieve(long id);
+
+	public List<Movie> retrieveMoviesStartingWith(String movieName);
 }

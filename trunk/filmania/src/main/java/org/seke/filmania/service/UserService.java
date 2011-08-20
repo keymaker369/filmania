@@ -17,7 +17,7 @@ public interface UserService {
 	 * 
 	 * @param id
 	 */
-	public User retrieveUser(int id);
+	public User retrieveUser(Long id);
 
 	/**
 	 * Retrieve all users.

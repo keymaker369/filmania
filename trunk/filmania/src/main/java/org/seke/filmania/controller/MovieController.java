@@ -29,7 +29,7 @@ public class MovieController {
 
 	@Autowired
 	private MovieService movieService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -42,8 +42,9 @@ public class MovieController {
 
 	@RequestMapping(value = "/movie/add", params = "saveNewMovie", method = RequestMethod.POST)
 	public ModelAndView saveNewMovie(MovieBean movieBean, BindingResult bindingResult) {
-		//TODO izmeni ovo. User ce da se vadi iz sesije.to je ulogovan user.
-		User tempUser = getUserService().retrieveUser(1);movieBean.setUser(tempUser); 
+		// TODO izmeni ovo. User ce da se vadi iz sesije.to je ulogovan user.
+		User tempUser = getUserService().retrieveUser(new Long(1));
+		movieBean.setUser(tempUser);
 		movieBean.setInputDate(new Timestamp(System.currentTimeMillis()));
 		getMovieService().saveMovie(movieBean);
 		return new ModelAndView("redirect:/movie/add", "newMovie", movieBean);
@@ -58,6 +59,12 @@ public class MovieController {
 	@RequestMapping(value = "/movie/movies")
 	public ModelAndView openShowAllMoviesPage() {
 		List<Movie> movies = getMovieService().retriveAllMovies();
+		return new ModelAndView("/movie/movies", "movies", movies);
+	}
+
+	@RequestMapping(value = "/movie/searchMovies", method = RequestMethod.POST, params = "searchMovie")
+	public ModelAndView searchMovies(@RequestParam("movieName") String movieName) {
+		List<Movie> movies = getMovieService().retrieveMoviesStartingWith(movieName);
 		return new ModelAndView("/movie/movies", "movies", movies);
 	}
 
@@ -84,5 +91,5 @@ public class MovieController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 }

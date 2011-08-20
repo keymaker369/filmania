@@ -33,7 +33,7 @@ public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
 	 * 
 	 * @see org.seke.filmania.dao.UserDAO#getUser(int)
 	 */
-	public User getUser(int id) {
+	public User getUser(Long id) {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
 		return (User) manager.createNamedQuery(User.GET_USER_BY_ID).setParameter("id", id).getSingleResult();
 	}
