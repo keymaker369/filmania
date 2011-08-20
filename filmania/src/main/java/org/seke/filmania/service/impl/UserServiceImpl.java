@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	 * 
 	 * @see org.seke.filmania.service.UserService#retrieveUser(int)
 	 */
-	public User retrieveUser(int id) {
+	public User retrieveUser(Long id) {
 		return getUserDAO().getUser(id);
 	}
 

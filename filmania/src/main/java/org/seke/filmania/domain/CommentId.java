@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * Composite id for Comment object.
@@ -15,14 +17,16 @@ public class CommentId implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -275636493390380334L;
+	
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private int userId;
-	private int movieId;
+	private Long userId;
+	private Long movieId;
 
 	public CommentId() {
 	}
 
-	public CommentId(int id, int userId, int movieId) {
+	public CommentId(int id, Long userId, Long movieId) {
 		this.id = id;
 		this.userId = userId;
 		this.movieId = movieId;
@@ -38,20 +42,20 @@ public class CommentId implements Serializable {
 	}
 
 	@Column(name = "USER_ID", nullable = false)
-	public int getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
 	@Column(name = "MOVIE_ID", nullable = false)
-	public int getMovieId() {
+	public Long getMovieId() {
 		return this.movieId;
 	}
 
-	public void setMovieId(int movieId) {
+	public void setMovieId(Long movieId) {
 		this.movieId = movieId;
 	}
 
@@ -65,15 +69,6 @@ public class CommentId implements Serializable {
 		CommentId castOther = (CommentId) other;
 
 		return (this.getId() == castOther.getId()) && (this.getUserId() == castOther.getUserId()) && (this.getMovieId() == castOther.getMovieId());
-	}
-
-	public int hashCode() {
-		int result = 17;
-
-		result = 37 * result + this.getId();
-		result = 37 * result + this.getUserId();
-		result = 37 * result + this.getMovieId();
-		return result;
 	}
 
 }

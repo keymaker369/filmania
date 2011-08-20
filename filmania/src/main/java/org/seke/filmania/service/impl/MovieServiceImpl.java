@@ -24,7 +24,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	public void saveMovie(Movie movie) {
-		getMovieDAO().create(movie);
+		getMovieDAO().save(movie);
 	}
 
 	public List<Movie> retriveAllMovies() {
@@ -41,8 +41,13 @@ public class MovieServiceImpl implements MovieService {
 				movie.getGenres().add(getGenreService().retrieveGenre(genreBean.getName()));
 			}
 		}
+		movie.setRank(new Double(0));
 		movie.setUser(movieBean.getUser());
 		return movie;
+	}
+
+	public List<Movie> retrieveMoviesStartingWith(String movieName) {
+		return getMovieDAO().retrieveMoviesStartingWith(movieName);
 	}
 
 	public Movie retrieveMovie(long id) {

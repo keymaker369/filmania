@@ -24,7 +24,7 @@ public interface UserDAO {
 	 * @param id
 	 * @return
 	 */
-	public User getUser(int id);
+	public User getUser(Long id);
 
 	/**
 	 * Retrieves all users from database.

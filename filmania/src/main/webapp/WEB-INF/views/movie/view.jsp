@@ -18,7 +18,10 @@
 		<td>Datum unosa filma: ${movie.inputDate}</td>
 	</tr>
 	<tr>	
-		<td>Dodato od strane korisnika: ${movie.user}</td>
+		<td>Dodato od strane korisnika: ${movie.user.username}</td>
+	</tr>
+	<tr>	
+		<td>Proscna ocena: ${movie.rank}</td>
 	</tr>
 	<tr>	
 		<td>
@@ -27,13 +30,20 @@
 			</display:table>
 		</td>
 	</tr>
-	Komentari:
 	<tr>	
 		<td>
-			<display:table list="${movie.comments}">
+			Komentari:
+			<display:table id="comment" list="${movie.comments}">
+				<display:column title="Komentar" property="content"/>
+				<display:column title="Vreme unosa" property="inputDate"/>
+				<display:column title="Korisnik">${comment.user.username}</display:column>
 			</display:table>
 		</td>
 	</tr>
 </table>
+<br/>
+<a href="/filmania/movie/addComment?idMovie=${movie.id}">Comment movie</a>
+<br/>
+<a href="/filmania/movie/rateMovie?idMovie=${movie.id}">Rate movie</a>
 </body>
 </html>

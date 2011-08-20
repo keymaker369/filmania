@@ -28,6 +28,15 @@
 		<property name="genreService" ref="genreService" />
 	</bean>
 	
+	<bean id="ratingDao" class="org.seke.filmania.dao.impl.RatingDaoImpl">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean id="ratingService" class="org.seke.filmania.service.impl.RatingServiceImpl">
+		<property name="radingDAO" ref="ratingDao" />
+		<property name="movieDAO" ref="movieDAO"></property>
+	</bean>
+	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" >
 		<property name="service" ref="genreService"/>
 		<property name="serviceName" value="GenreWebService"/>

@@ -9,8 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,12 +32,15 @@ public class Comment implements Serializable {
 		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
 		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
 		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private CommentId id;
 	
+	@MapsId(value = "userId")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	private User user;
 	
+	@MapsId(value = "movieId")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
 	private Movie movie;

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -30,7 +32,7 @@ public class Movie {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	private long id;
+	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false)
@@ -46,8 +48,11 @@ public class Movie {
 	@Column(name = "RANK", precision = 22, scale = 0)
 	private Double rank;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Comment> comments = new HashSet<Comment>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	private Set<Rating> ratings = new HashSet<Rating>(0);
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "MOVIE_GENRE", catalog = "filmania", 
@@ -71,11 +76,11 @@ public class Movie {
 		this.genres = genres;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -125,6 +130,14 @@ public class Movie {
 
 	public void setGenres(Set<Genre> genres) {
 		this.genres = genres;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 
 }
