@@ -35,7 +35,7 @@ public class UserController {
 	@RequestMapping(value = "/user/viewUsers", method = RequestMethod.GET)
 	public ModelAndView viewUsers() {
 		List<User> users = getUserService().retrieveAllUsers();
-		ModelAndView mav = new ModelAndView("/user/users", "users", users);
+		ModelAndView mav = new ModelAndView("/user/viewUsers", "users", users);
 		return mav;
 	}
 
