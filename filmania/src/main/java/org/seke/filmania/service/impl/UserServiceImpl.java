@@ -5,9 +5,13 @@ import java.util.List;
 import org.seke.filmania.dao.UserDAO;
 import org.seke.filmania.domain.User;
 import org.seke.filmania.service.UserService;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 	private UserDAO userDAO;
 
@@ -73,6 +77,10 @@ public class UserServiceImpl implements UserService {
 
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+		return getUserDAO().getUser(username);
 	}
 
 	

@@ -45,7 +45,7 @@ public class MovieDAOImpl extends JpaDaoSupport implements MovieDAO {
 
 	public List<Movie> retrieveMoviesStartingWith(String movieName) {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
-		return manager.createQuery("select m from Movie where m.name like '" + movieName + "%'").getResultList();
+		return manager.createQuery("select m from Movie m where m.name like '" + movieName + "%'").getResultList();
 	}
 
 }
