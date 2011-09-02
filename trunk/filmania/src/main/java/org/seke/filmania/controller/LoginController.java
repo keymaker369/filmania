@@ -1,5 +1,7 @@
 package org.seke.filmania.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,8 +19,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/loginerror")
-	public String loadLoginerrorPage(){
-		return "login";
+	public String loadLoginerrorPage(HttpServletRequest request){
+		request.getSession().setAttribute("message", "doslo je do greske prilikom logovanja");
+		return "redirect:/login";
 	}
 	
 	@RequestMapping("/denied")

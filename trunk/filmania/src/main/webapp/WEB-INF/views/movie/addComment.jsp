@@ -12,6 +12,7 @@
 	<sf:form action="/filmania/movie/addComment" method="POST" modelAttribute="addCommentCommand">
 		<input type="hidden" name="movieId" value="${movie.id}"/>
 		<sf:textarea path="comment"/>
+		<sf:errors path="comment"/>
 		<br />
 		<input type="submit" name="sacuvajCommentar" value="sacuvaj"/>
 	</sf:form>

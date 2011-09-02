@@ -1,5 +1,6 @@
 package org.seke.filmania.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
 import org.seke.filmania.dao.RatingService;
@@ -39,12 +40,11 @@ public class RatingController {
 	}
 
 	@RequestMapping(value = "/movie/rateMovie", method = RequestMethod.POST, params = "saveMark")
-	public String addCommentPage(@ModelAttribute("addMarkCommand") AddMarkCommand command) {
+	public String addCommentPage(@ModelAttribute("addMarkCommand") AddMarkCommand command, Principal principal) {
 		Movie commentedMovie = getMovieService().retrieveMovie(command.getMovieId());
 		Rating rating = new Rating();
 		rating.setMark(command.getMark());
-		// TODO izmeni ovo. User ce da se vadi iz sesije.to je ulogovan user.
-		User tempUser = getUserService().retrieveUser(new Long(1));
+		User tempUser = getUserService().retrieveUser(principal.getName());
 		rating.setUser(tempUser);
 		rating.setMovie(commentedMovie);
 		RatingId ci = new RatingId();

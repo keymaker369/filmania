@@ -13,7 +13,10 @@
 	<table>
 		<tr>
 			<td>name:</td>
-			<td><sf:input path="name" /></td>
+			<td>
+				<sf:input path="name" />
+				<sf:errors path="name" />	
+			</td>
 		</tr>
 	</table>
 	<display:table id="genre" list="${newMovie.allGenres}">

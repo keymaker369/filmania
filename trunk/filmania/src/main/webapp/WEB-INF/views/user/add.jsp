@@ -12,15 +12,23 @@
 	<table>
 		<tr>
 			<td>Username:</td>
-			<td><sf:input path="username" /></td>
+			<td>
+				<sf:input path="username" />
+				<sf:errors path="username" />
+			</td>
 		</tr>
 		<tr>
 			<td>Password:</td>
-			<td><sf:input path="password" /></td>
+			<td>
+				<sf:input path="password" />
+			</td>
 		</tr>
 		<tr>
 			<td>email:</td>
-			<td><sf:input path="email" /></td>
+			<td>
+				<sf:input path="email" />
+				<sf:errors path="email" />
+			</td>
 		</tr>
 		<tr>
 			<td>Account non expired:</td>
