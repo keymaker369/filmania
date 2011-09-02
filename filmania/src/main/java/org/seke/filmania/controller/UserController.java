@@ -3,12 +3,16 @@ package org.seke.filmania.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.seke.filmania.controller.validation.UserValidator;
 import org.seke.filmania.domain.User;
 import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,9 +29,18 @@ public class UserController {
 	public ModelAndView openAddNewUserPage() {
 		return new ModelAndView("/user/add", "newUser", new User());
 	}
+	
+	@InitBinder(value = {"user", "newUser"})
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new UserValidator());
+	}
 
 	@RequestMapping(value = "/user/add", params = "saveNewUser", method = RequestMethod.POST)
-	public String saveNewUser(@ModelAttribute("newUser") User newUser) {
+	public String saveNewUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult result) {
+		if (result.hasErrors()) {
+			return "/user/add";
+		}
+		
 		getUserService().saveUser(newUser);
 		return "redirect:/index.jsp";
 	}
@@ -46,7 +59,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/edit", params = "updateUser", method = RequestMethod.POST)
-	public String updateUser(User user, BindingResult result) {
+	public String updateUser(@Valid User user, BindingResult result) {
+		if (result.hasErrors()) {
+			return "/user/edit";
+		}
 		getUserService().updateUser(user);
 		return "redirect:/index.jsp";
 	}

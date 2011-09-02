@@ -10,6 +10,7 @@
 	
 		<intercept-url pattern="/login" filters="none"/>
 		<intercept-url pattern="/resources/*" filters="none" />
+		<intercept-url pattern="/decorators/*" filters="none" />
 		<intercept-url pattern="/genre/add" access="hasRole('member')" />
 		<intercept-url pattern="/genre/editGenre" access="hasRole('member')" />
 		<intercept-url pattern="/genre/genres" access="hasRole('member')" />

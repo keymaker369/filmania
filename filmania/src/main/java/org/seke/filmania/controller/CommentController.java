@@ -1,7 +1,11 @@
 package org.seke.filmania.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
+import javax.validation.Valid;
+
+import org.seke.filmania.controller.validation.CommentValidator;
 import org.seke.filmania.domain.Comment;
 import org.seke.filmania.domain.CommentId;
 import org.seke.filmania.domain.Movie;
@@ -10,7 +14,12 @@ import org.seke.filmania.model.AddCommentCommand;
 import org.seke.filmania.service.MovieService;
 import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +35,11 @@ public class CommentController {
 	@Autowired
 	private UserService userService;
 	
+	@InitBinder(value = "addCommentCommand")
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new CommentValidator());
+    }
+	
 	@RequestMapping(value = "/movie/addComment", method = RequestMethod.GET, params = "idMovie")
 	public ModelAndView loadAddCommentPage(@RequestParam("idMovie") String idMovie) {
 		Movie movieToComment = getMovieService().retrieveMovie(Long.parseLong(idMovie));
@@ -35,12 +49,15 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value = "/movie/addComment", method = RequestMethod.POST, params = "sacuvajCommentar")
-	public String addCommentPage(@ModelAttribute("addCommentCommand") AddCommentCommand command) {
-		Movie commentedMovie = getMovieService().retrieveMovie(command.getMovieId());
+	public String addCommentPage(@Valid AddCommentCommand addCommentCommand, BindingResult result, Principal principal) {
+		if(result.hasErrors()){
+			return "/movie/addComment";
+		}
+		
+		Movie commentedMovie = getMovieService().retrieveMovie(addCommentCommand.getMovieId());
 		Comment comment = new Comment();
-		comment.setContent(command.getComment());
-		//TODO izmeni ovo. User ce da se vadi iz sesije.to je ulogovan user.
-		User tempUser = getUserService().retrieveUser(new Long(1));
+		comment.setContent(addCommentCommand.getComment());
+		User tempUser = getUserService().retrieveUser(principal.getName());
 		comment.setUser(tempUser);
 		comment.setMovie(commentedMovie);
 		CommentId ci = new CommentId();
@@ -50,7 +67,7 @@ public class CommentController {
 		comment.setInputDate(new Date(System.currentTimeMillis()));
 		commentedMovie.getComments().add(comment);
 		getMovieService().saveMovie(commentedMovie);
-		return "redirect:/movie/view?id=" + command.getMovieId();
+		return "redirect:/movie/view?id=" + addCommentCommand.getMovieId();
 	}
 	
 

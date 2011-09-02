@@ -1,8 +1,13 @@
 package org.seke.filmania.controller;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.seke.filmania.controller.validation.CommentValidator;
+import org.seke.filmania.controller.validation.MovieValidator;
 import org.seke.filmania.domain.Movie;
 import org.seke.filmania.domain.User;
 import org.seke.filmania.model.MovieBean;
@@ -12,6 +17,9 @@ import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +41,11 @@ public class MovieController {
 	@Autowired
 	private UserService userService;
 
+	@InitBinder(value = "newMovie")
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new MovieValidator());
+    }
+	
 	@RequestMapping(value = "/movie/add")
 	public ModelAndView openAddMoviePage() {
 		MovieBean movieBean = new MovieBean();
@@ -41,13 +54,16 @@ public class MovieController {
 	}
 
 	@RequestMapping(value = "/movie/add", params = "saveNewMovie", method = RequestMethod.POST)
-	public ModelAndView saveNewMovie(MovieBean movieBean, BindingResult bindingResult) {
-		// TODO izmeni ovo. User ce da se vadi iz sesije.to je ulogovan user.
-		User tempUser = getUserService().retrieveUser(new Long(1));
+	public ModelAndView saveNewMovie(@Valid @ModelAttribute("newMovie") MovieBean movieBean, BindingResult result, Principal principal) {
+		if(result.hasErrors()){
+			return new ModelAndView("/movie/add");
+		}
+		
+		User tempUser = getUserService().retrieveUser(principal.getName());
 		movieBean.setUser(tempUser);
 		movieBean.setInputDate(new Timestamp(System.currentTimeMillis()));
 		getMovieService().saveMovie(movieBean);
-		return new ModelAndView("redirect:/movie/add", "newMovie", movieBean);
+		return new ModelAndView("redirect:/movie/movies", "newMovie", movieBean);
 	}
 
 	@RequestMapping(value = "/movie/view")
@@ -62,7 +78,7 @@ public class MovieController {
 		return new ModelAndView("/movie/movies", "movies", movies);
 	}
 
-	@RequestMapping(value = "/movie/searchMovies", method = RequestMethod.POST, params = "searchMovie")
+	@RequestMapping(value = "/movie/movies", method = RequestMethod.POST, params = "searchMovie")
 	public ModelAndView searchMovies(@RequestParam("movieName") String movieName) {
 		List<Movie> movies = getMovieService().retrieveMoviesStartingWith(movieName);
 		return new ModelAndView("/movie/movies", "movies", movies);
