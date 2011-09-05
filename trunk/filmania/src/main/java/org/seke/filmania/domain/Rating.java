@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "RATING", catalog = "filmania")
+@Table(name = "RATING")
 public class Rating implements Serializable {
 
 	/**

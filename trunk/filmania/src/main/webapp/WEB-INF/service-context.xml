@@ -37,10 +37,21 @@
 		<property name="movieDAO" ref="movieDAO"></property>
 	</bean>
 	
+	<bean id="roleDao" class="org.seke.filmania.dao.impl.RoleDAOImpl">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" >
 		<property name="service" ref="genreService"/>
 		<property name="serviceName" value="GenreWebService"/>
 		<property name="serviceInterface" value="org.seke.filmania.service.GenreService"/>
+	</bean>
+	
+	<bean class="org.seke.filmania.utils.DatabasePopulate" init-method="databasePopulate">
+		<property name="genreService" ref="genreService"/>
+		<property name="movieService" ref="movieService"/>
+		<property name="userService" ref="userService"/>
+		<property name="roleDAO" ref="roleDao"/>
 	</bean>
 
 </beans>

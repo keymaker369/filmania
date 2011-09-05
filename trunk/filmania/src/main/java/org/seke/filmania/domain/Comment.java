@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "COMMENT", catalog = "filmania")
+@Table(name = "COMMENT")
 public class Comment implements Serializable {
 
 	/**
