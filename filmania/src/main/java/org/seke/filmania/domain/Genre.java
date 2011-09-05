@@ -17,7 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GENRE", catalog = "filmania")
+@Table(name = "GENRE")
 @NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name ") })
 public class Genre {
 
@@ -56,7 +56,7 @@ public class Genre {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "movie_genre", catalog = "filmania", joinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) })
+	@JoinTable(name = "movie_genre", joinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) })
 	public Set<Movie> getMovies() {
 		return this.movies;
 	}

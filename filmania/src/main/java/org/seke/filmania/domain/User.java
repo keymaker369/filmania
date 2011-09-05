@@ -42,7 +42,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 								"where u.username= :username")})
 
 @Entity
-@Table(name = "USER", catalog = "filmania")
+@Table(name = "USER")
 public class User implements UserDetails {
 
 	/**
@@ -91,7 +91,7 @@ public class User implements UserDetails {
 	private Set<Movie> movies = new HashSet<Movie>(0);
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_ROLE", catalog = "filmania", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
+	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
 	private Set<Role> roles = new HashSet<Role>(0);
 
 	public User() {
