@@ -1,5 +1,7 @@
 package org.seke.filmania.dao.impl;
 
+import java.util.List;
+
 import org.seke.filmania.dao.RoleDAO;
 import org.seke.filmania.domain.Role;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
@@ -16,4 +18,9 @@ public class RoleDAOImpl extends JpaDaoSupport implements RoleDAO {
 		return role;
 	}
 
+	public List<Role> retrieveAll() {
+		return getJpaTemplate().find("from Role");
+	}
+
+	
 }
