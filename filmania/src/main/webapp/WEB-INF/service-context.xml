@@ -41,6 +41,10 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	
+	<bean id="roleService" class="org.seke.filmania.service.impl.RoleServiceImpl">
+		<property name="roleDAO" ref="roleDao"/>
+	</bean>
+	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" >
 		<property name="service" ref="genreService"/>
 		<property name="serviceName" value="GenreWebService"/>

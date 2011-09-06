@@ -1,12 +1,10 @@
-package org.seke.filmania.dao;
+package org.seke.filmania.service;
 
 import java.util.List;
 
 import org.seke.filmania.domain.Role;
 
-public interface RoleDAO {
-	
-	public Role saveRole(Role role);
-	
+public interface RoleService {
+
 	public List<Role> retrieveAll();
 }

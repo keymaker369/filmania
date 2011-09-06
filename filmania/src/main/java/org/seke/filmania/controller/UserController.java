@@ -6,11 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.seke.filmania.controller.validation.UserValidator;
+import org.seke.filmania.domain.Role;
 import org.seke.filmania.domain.User;
+import org.seke.filmania.model.UserCommand;
+import org.seke.filmania.service.RoleService;
 import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,12 +29,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private RoleService roleService;
+
 	@RequestMapping(value = "/user/add")
 	public ModelAndView openAddNewUserPage() {
 		return new ModelAndView("/user/add", "newUser", new User());
 	}
-	
-	@InitBinder(value = {"user", "newUser"})
+
+	@InitBinder(value = { "user", "newUser" })
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(new UserValidator());
 	}
@@ -40,7 +47,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "/user/add";
 		}
-		
+
 		getUserService().saveUser(newUser);
 		return "redirect:/index.jsp";
 	}
@@ -55,6 +62,24 @@ public class UserController {
 	@RequestMapping(value = "/user/edit", method = RequestMethod.GET, params = "username")
 	public ModelAndView loadEditUserPage(@RequestParam("username") String username) {
 		User userToEdit = getUserService().retrieveUser(username);
+		
+		UserCommand user = new UserCommand();
+		user.setUsername(userToEdit.getUsername());
+		user.setPassword(userToEdit.getPassword());
+		user.setEmail(userToEdit.getEmail());
+		user.setAccountNonExpired(userToEdit.isCredentialsNonExpired());
+		user.setAccountNonLocked(userToEdit.isAccountNonLocked());
+		user.setCredentialsNonExpired(userToEdit.isCredentialsNonExpired());
+		user.setEnabled(userToEdit.isEnabled());
+
+		List<Role> allRoles = getRoleService().retrieveAll();
+		
+		user.setRoles(new boolean[allRoles.size()]);
+		
+		for (Role role : userToEdit.getRoles()) {
+			user.getRoles()[user.getRoles().].
+		}
+		
 		return new ModelAndView("/user/edit", "user", userToEdit);
 	}
 
@@ -68,23 +93,31 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET, params = "username")
-	public ModelAndView loadDeleteUserPage(@RequestParam("username") String username){
+	public ModelAndView loadDeleteUserPage(@RequestParam("username") String username) {
 		User userToDelete = getUserService().retrieveUser(username);
 		return new ModelAndView("/user/deleteUser", "user", userToDelete);
 	}
-	
+
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.POST, params = "delete")
-	public String deleteUser(@RequestParam("username") String username){
+	public String deleteUser(@RequestParam("username") String username) {
 		getUserService().deleteUser(username);
 		return "redirect:/user/viewUsers";
 	}
-	
+
 	public UserService getUserService() {
 		return userService;
 	}
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public RoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
 	}
 
 }
