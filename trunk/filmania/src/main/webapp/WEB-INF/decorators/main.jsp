@@ -46,6 +46,9 @@
 			<sec:authorize access="fullyAuthenticated">
 				<td><a href="<c:url value="/logout"/>">logout</a></td>
 			</sec:authorize>
+			<sec:authorize access="not fullyAuthenticated">
+				<td><a href="<c:url value="/register"/>">register</a></td>
+			</sec:authorize>
 		</tr>
 	</table>
 	<br />
