@@ -1,6 +1,6 @@
 package org.seke.filmania.controller.validation;
 
-import org.seke.filmania.domain.User;
+import org.seke.filmania.model.UserCommand;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -8,7 +8,7 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
 
 	public boolean supports(Class<?> clazz) {
-		return clazz == User.class;
+		return clazz == UserCommand.class;
 	}
 
 	public void validate(Object target, Errors errors) {

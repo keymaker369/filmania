@@ -20,14 +20,14 @@
 		<tr>
 			<td>Password:</td>
 			<td>
-				<sf:input path="password" />
+				<sf:password path="password" />
 				<sf:errors path="password" />
 			</td>
 		</tr>
 		<tr>
 			<td>Retype password:</td>
 			<td>
-				<sf:input path="retypePassword" />
+				<sf:password path="retypePassword" />
 				<sf:errors path="retypePassword" />
 			</td>
 		</tr>

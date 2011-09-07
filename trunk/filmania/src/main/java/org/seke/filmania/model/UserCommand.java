@@ -1,8 +1,11 @@
 package org.seke.filmania.model;
 
-import javax.persistence.Column;
+import java.util.LinkedList;
+import java.util.List;
 
 public class UserCommand {
+
+	private long id;
 
 	private String username;
 
@@ -18,7 +21,17 @@ public class UserCommand {
 
 	private boolean enabled;
 
-	private boolean[] roles;
+	private boolean member;
+
+	private boolean admin;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;
@@ -76,12 +89,20 @@ public class UserCommand {
 		this.enabled = enabled;
 	}
 
-	public boolean[] getRoles() {
-		return roles;
+	public boolean isMember() {
+		return member;
 	}
 
-	public void setRoles(boolean[] roles) {
-		this.roles = roles;
+	public void setMember(boolean member) {
+		this.member = member;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }
