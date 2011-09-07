@@ -20,7 +20,7 @@
 		<tr>
 			<td>Password:</td>
 			<td>
-				<sf:input path="password" />
+				<sf:password path="password" />
 			</td>
 		</tr>
 		<tr>

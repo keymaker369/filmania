@@ -51,11 +51,11 @@
 		<property name="serviceInterface" value="org.seke.filmania.service.GenreService"/>
 	</bean>
 	
-	<bean class="org.seke.filmania.utils.DatabasePopulate" init-method="databasePopulate">
+	<!-- <bean class="org.seke.filmania.utils.DatabasePopulate" init-method="databasePopulate">
 		<property name="genreService" ref="genreService"/>
 		<property name="movieService" ref="movieService"/>
 		<property name="userService" ref="userService"/>
 		<property name="roleDAO" ref="roleDao"/>
-	</bean>
+	</bean> -->
 
 </beans>

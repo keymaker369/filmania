@@ -1,8 +1,9 @@
 package org.seke.filmania.controller;
 
 import java.util.List;
+import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.seke.filmania.controller.validation.UserValidator;
@@ -14,7 +15,6 @@ import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,7 +34,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/add")
 	public ModelAndView openAddNewUserPage() {
-		return new ModelAndView("/user/add", "newUser", new User());
+		return new ModelAndView("/user/add", "newUser", new UserCommand());
 	}
 
 	@InitBinder(value = { "user", "newUser" })
@@ -43,10 +43,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/add", params = "saveNewUser", method = RequestMethod.POST)
-	public String saveNewUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult result) {
+	public String saveNewUser(@Valid @ModelAttribute("newUser") UserCommand command, BindingResult result) {
 		if (result.hasErrors()) {
 			return "/user/add";
 		}
+
+		User newUser = new User();
+		newUser.setUsername(command.getUsername());
+		newUser.setPassword(command.getPassword());
+		newUser.setAccountNonExpired(command.isAccountNonExpired());
+		newUser.setAccountNonLocked(command.isAccountNonLocked());
+		newUser.setEmail(command.getEmail());
+		newUser.setCredentialsNonExpired(command.isCredentialsNonExpired());
+		newUser.setEnabled(command.isEnabled());
 
 		getUserService().saveUser(newUser);
 		return "redirect:/index.jsp";
@@ -60,42 +69,85 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/edit", method = RequestMethod.GET, params = "username")
-	public ModelAndView loadEditUserPage(@RequestParam("username") String username) {
+	public ModelAndView loadEditUserPage(@RequestParam("username") String username, HttpSession httpSession) {
 		User userToEdit = getUserService().retrieveUser(username);
-		
+
 		UserCommand user = new UserCommand();
+		user.setId(userToEdit.getId());
 		user.setUsername(userToEdit.getUsername());
-		user.setPassword(userToEdit.getPassword());
+		httpSession.setAttribute("password", userToEdit.getPassword());
 		user.setEmail(userToEdit.getEmail());
 		user.setAccountNonExpired(userToEdit.isCredentialsNonExpired());
 		user.setAccountNonLocked(userToEdit.isAccountNonLocked());
 		user.setCredentialsNonExpired(userToEdit.isCredentialsNonExpired());
 		user.setEnabled(userToEdit.isEnabled());
 
-		List<Role> allRoles = getRoleService().retrieveAll();
-		
-		user.setRoles(new boolean[allRoles.size()]);
-		
 		for (Role role : userToEdit.getRoles()) {
-			user.getRoles()[user.getRoles().].
+			if (role.getName().equals("member"))
+				user.setMember(true);
+			if (role.getName().equals("admin"))
+				user.setAdmin(true);
 		}
-		
-		return new ModelAndView("/user/edit", "user", userToEdit);
+
+		return new ModelAndView("/user/edit", "user", user);
 	}
 
 	@RequestMapping(value = "/user/edit", params = "updateUser", method = RequestMethod.POST)
-	public String updateUser(@Valid User user, BindingResult result) {
+	public String updateUser(@Valid UserCommand command, BindingResult result, HttpSession httpSession) {
 		if (result.hasErrors()) {
 			return "/user/edit";
 		}
+
+		User user = getUserService().retrieveUser(command.getId());
+		user.setPassword(httpSession.getAttribute("password").toString());
+		httpSession.removeAttribute("password");
+		user.setAccountNonExpired(command.isAccountNonExpired());
+		user.setAccountNonLocked(command.isAccountNonLocked());
+		user.setEmail(command.getEmail());
+		user.setCredentialsNonExpired(command.isCredentialsNonExpired());
+		user.setEnabled(command.isEnabled());
+
+		List<Role> allRoles = getRoleService().retrieveAll();
+		for (Role role : allRoles) {
+			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) == null && role.getName().equals("member") && command.isMember()) {
+				user.getRoles().add(role);
+			}
+			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) == null && role.getName().equals("admin") && command.isAdmin()) {
+				user.getRoles().add(role);
+			}
+			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) != null && role.getName().equals("member") && !command.isMember()) {
+				removeRoleFromSet(user.getRoles(), role.getName());
+			}
+			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) != null && role.getName().equals("admin") && !command.isAdmin()) {
+				removeRoleFromSet(user.getRoles(), role.getName());
+			}
+		}
+
 		getUserService().updateUser(user);
 		return "redirect:/index.jsp";
+	}
+
+	private Role getRoleFromSetOfRolesByName(Set<Role> roles, String name) {
+		for (Role role : roles) {
+			if (role.getName().equals(name))
+				return role;
+		}
+		return null;
+	}
+
+	private void removeRoleFromSet(Set<Role> roles, String roleName) {
+		for (Role role : roles) {
+			if (role.getName().equals(roleName))
+				roles.remove(role);
+		}
 	}
 
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET, params = "username")
 	public ModelAndView loadDeleteUserPage(@RequestParam("username") String username) {
 		User userToDelete = getUserService().retrieveUser(username);
-		return new ModelAndView("/user/deleteUser", "user", userToDelete);
+		UserCommand command = new UserCommand();
+		command.setUsername(userToDelete.getUsername());
+		return new ModelAndView("/user/deleteUser", "user", command);
 	}
 
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.POST, params = "delete")

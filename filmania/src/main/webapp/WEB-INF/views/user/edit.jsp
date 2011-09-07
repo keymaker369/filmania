@@ -43,6 +43,14 @@
 				<td>Enabled:</td>
 				<td><sf:checkbox path="enabled" /></td>
 			</tr>
+			<tr>
+				<td>Role member:</td>
+				<td><sf:checkbox path="member" /></td>
+			</tr>
+			<tr>
+				<td>Role admin:</td>
+				<td><sf:checkbox path="admin" /></td>
+			</tr>
 		</table>
 	
 		<input type="submit" name="updateUser" value="Save" />
