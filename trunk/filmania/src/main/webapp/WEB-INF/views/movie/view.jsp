@@ -13,9 +13,6 @@
 		<td>Naziv: ${movie.name}</td>
 	</tr>	
 	<tr>	
-		<td>Rank: ${movie.rank}</td>
-	</tr>
-	<tr>	
 		<td>Datum unosa filma: ${movie.inputDate}</td>
 	</tr>
 	<tr>	
