@@ -1,9 +1,9 @@
 <decorators defaultdir="/WEB-INF/decorators">
-	<decorator name="nomenu" page="nomenu.jsp">
+	<!-- <decorator name="nomenu" page="nomenu.jsp">
 
 		<pattern>/login</pattern>
 
-	</decorator>
+	</decorator> -->
 	<decorator name="main" page="main.jsp">
 
 		<pattern>/*</pattern>

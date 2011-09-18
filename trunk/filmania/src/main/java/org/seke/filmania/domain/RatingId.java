@@ -58,16 +58,4 @@ public class RatingId implements Serializable {
 		this.movieId = movieId;
 	}
 
-	public boolean equals(Object other) {
-		if ((this == other))
-			return true;
-		if ((other == null))
-			return false;
-		if (!(other instanceof CommentId))
-			return false;
-		CommentId castOther = (CommentId) other;
-
-		return (this.getId() == castOther.getId()) && (this.getUserId() == castOther.getUserId()) && (this.getMovieId() == castOther.getMovieId());
-	}
-
 }

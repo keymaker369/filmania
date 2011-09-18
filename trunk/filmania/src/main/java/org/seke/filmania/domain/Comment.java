@@ -33,7 +33,7 @@ public class Comment implements Serializable {
 		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
 		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private CommentId id;
+	private CommentId commentId;
 	
 	@MapsId(value = "userId")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -55,26 +55,26 @@ public class Comment implements Serializable {
 	public Comment() {
 	}
 
-	public Comment(CommentId id, User user, Movie movie) {
-		this.id = id;
+	public Comment(CommentId commentId, User user, Movie movie) {
+		this.commentId = commentId;
 		this.user = user;
 		this.movie = movie;
 	}
 
-	public Comment(CommentId id, User user, Movie movie, String content, Date inputDate) {
-		this.id = id;
+	public Comment(CommentId commentId, User user, Movie movie, String content, Date inputDate) {
+		this.commentId = commentId;
 		this.user = user;
 		this.movie = movie;
 		this.content = content;
 		this.inputDate = inputDate;
 	}
 
-	public CommentId getId() {
-		return this.id;
+	public CommentId getCommentId() {
+		return this.commentId;
 	}
 
-	public void setId(CommentId id) {
-		this.id = id;
+	public void setCommentId(CommentId commentId) {
+		this.commentId = commentId;
 	}
 	
 	public User getUser() {

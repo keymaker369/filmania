@@ -12,7 +12,7 @@
 		<display:column title="id" property="id"/>
 		<display:column title="username" property="username"/>
 		<display:column title="email" property="email"/>
-		<display:column title="accountNonExpired">
+		<display:column title="acc non exp">
 			<c:choose>
 				<c:when test="${user.accountNonExpired}">
 					yes
@@ -22,7 +22,7 @@
 				</c:otherwise>
 			</c:choose>
 		</display:column>
-		<display:column title="accountNonLocked">
+		<display:column title="acc non locked">
 			<c:choose>
 				<c:when test="${user.accountNonLocked}">
 					yes
@@ -32,7 +32,7 @@
 				</c:otherwise>
 			</c:choose>
 		</display:column>
-		<display:column title="CredentialsNonExpired">
+		<display:column title="cred non exp">
 			<c:choose>
 				<c:when test="${user.credentialsNonExpired}">
 					yes
@@ -42,7 +42,7 @@
 				</c:otherwise>
 			</c:choose>
 		</display:column>
-		<display:column title="Enabled">
+		<display:column title="enabled">
 			<c:choose>
 				<c:when test="${user.enabled}">
 					yes
