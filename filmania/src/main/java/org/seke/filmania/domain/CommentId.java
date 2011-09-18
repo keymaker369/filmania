@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
 /**
  * Composite id for Comment object.
  */
@@ -19,25 +18,25 @@ public class CommentId implements Serializable {
 	private static final long serialVersionUID = -275636493390380334L;
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	private Long userId;
 	private Long movieId;
 
 	public CommentId() {
 	}
 
-	public CommentId(int id, Long userId, Long movieId) {
+	public CommentId(Long id, Long userId, Long movieId) {
 		this.id = id;
 		this.userId = userId;
 		this.movieId = movieId;
 	}
 
 	@Column(name = "ID", nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

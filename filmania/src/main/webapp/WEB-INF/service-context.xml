@@ -45,6 +45,14 @@
 		<property name="roleDAO" ref="roleDao"/>
 	</bean>
 	
+	<bean id="commentDAO" class="org.seke.filmania.dao.impl.CommentDAOImpl">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean id="commentService" class="org.seke.filmania.service.impl.CommentServiceImpl">
+		<property name="commentDAO" ref="commentDAO"/>
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" >
 		<property name="service" ref="genreService"/>
 		<property name="serviceName" value="GenreWebService"/>

@@ -11,6 +11,7 @@ import org.seke.filmania.domain.CommentId;
 import org.seke.filmania.domain.Movie;
 import org.seke.filmania.domain.User;
 import org.seke.filmania.model.AddCommentCommand;
+import org.seke.filmania.service.CommentService;
 import org.seke.filmania.service.MovieService;
 import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,15 @@ public class CommentController {
 
 	@Autowired
 	private UserService userService;
-	
+
+	@Autowired
+	private CommentService commentService;
+
 	@InitBinder(value = "addCommentCommand")
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(new CommentValidator());
-    }
-	
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new CommentValidator());
+	}
+
 	@RequestMapping(value = "/movie/addComment", method = RequestMethod.GET, params = "idMovie")
 	public ModelAndView loadAddCommentPage(@RequestParam("idMovie") String idMovie) {
 		Movie movieToComment = getMovieService().retrieveMovie(Long.parseLong(idMovie));
@@ -47,13 +51,13 @@ public class CommentController {
 		mav.addObject("addCommentCommand", new AddCommentCommand());
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/movie/addComment", method = RequestMethod.POST, params = "sacuvajCommentar")
 	public String addCommentPage(@Valid AddCommentCommand addCommentCommand, BindingResult result, Principal principal) {
-		if(result.hasErrors()){
+		if (result.hasErrors()) {
 			return "/movie/addComment";
 		}
-		
+
 		Movie commentedMovie = getMovieService().retrieveMovie(addCommentCommand.getMovieId());
 		Comment comment = new Comment();
 		comment.setContent(addCommentCommand.getComment());
@@ -63,13 +67,13 @@ public class CommentController {
 		CommentId ci = new CommentId();
 		ci.setUserId(tempUser.getId());
 		ci.setMovieId(commentedMovie.getId());
-		comment.setId(ci);
+		comment.setCommentId(ci);
 		comment.setInputDate(new Date(System.currentTimeMillis()));
+		//getCommentService().saveComment(comment, tempUser);
 		commentedMovie.getComments().add(comment);
 		getMovieService().saveMovie(commentedMovie);
 		return "redirect:/movie/view?id=" + addCommentCommand.getMovieId();
 	}
-	
 
 	public MovieService getMovieService() {
 		return movieService;
@@ -85,6 +89,14 @@ public class CommentController {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public CommentService getCommentService() {
+		return commentService;
+	}
+
+	public void setCommentService(CommentService commentService) {
+		this.commentService = commentService;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import org.seke.filmania.dao.UserDAO;
 import org.seke.filmania.domain.User;
@@ -55,7 +56,13 @@ public class UserDAOImpl extends JpaDaoSupport implements UserDAO {
 	 */
 	public User getUser(String username) {
 		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
-		return (User) manager.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username).getSingleResult();
+		Query query = manager.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username);
+		query.setMaxResults(1);
+		List resultList = query.getResultList();
+		if (resultList != null && !resultList.isEmpty()) {
+			return (User) resultList.get(0);
+		}
+		return null;
 	}
 
 	/*

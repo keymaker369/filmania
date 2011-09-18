@@ -20,7 +20,7 @@
 		</tr>
 	</table>
 	<display:table id="genre" list="${newMovie.allGenres}">
-		<display:column property="name" />
+		<display:column property="name" title="" />
 		<display:column title="select one">
 			<sf:checkbox path="allGenres[${genre_rowNum - 1}].assigned"/>
 			<sf:hidden path="allGenres[${genre_rowNum - 1}].name"/>
