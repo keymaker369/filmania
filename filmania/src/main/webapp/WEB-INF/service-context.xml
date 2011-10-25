@@ -1,58 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<bean id="genreDAO" class="org.seke.filmania.dao.impl.GenreDAOImpl">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
+	<context:component-scan base-package="org.seke.filmania.dao.impl"/>
+	
 	<bean id="genreService" class="org.seke.filmania.service.impl.GenreServiceImpl">
 		<property name="genreDao" ref="genreDAO" />
-	</bean>
-
-	<bean id="userDAO" class="org.seke.filmania.dao.impl.UserDAOImpl">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<bean id="userService" class="org.seke.filmania.service.impl.UserServiceImpl">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
-	<bean id="movieDAO" class="org.seke.filmania.dao.impl.MovieDAOImpl">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	
 	<bean id="movieService" class="org.seke.filmania.service.impl.MovieServiceImpl">
 		<property name="movieDAO" ref="movieDAO" />
 		<property name="genreService" ref="genreService" />
 	</bean>
 	
-	<bean id="ratingDao" class="org.seke.filmania.dao.impl.RatingDaoImpl">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	
 	<bean id="ratingService" class="org.seke.filmania.service.impl.RatingServiceImpl">
-		<property name="radingDAO" ref="ratingDao" />
+		<property name="radingDAO" ref="ratingDAO" />
 		<property name="movieDAO" ref="movieDAO"></property>
 	</bean>
 	
-	<bean id="roleDao" class="org.seke.filmania.dao.impl.RoleDAOImpl">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	
 	<bean id="roleService" class="org.seke.filmania.service.impl.RoleServiceImpl">
-		<property name="roleDAO" ref="roleDao"/>
-	</bean>
-	
-	<bean id="commentDAO" class="org.seke.filmania.dao.impl.CommentDAOImpl">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="roleDAO" ref="roleDAO"/>
 	</bean>
 	
 	<bean id="commentService" class="org.seke.filmania.service.impl.CommentServiceImpl">
 		<property name="commentDAO" ref="commentDAO"/>
 		<property name="userDAO" ref="userDAO"/>
 	</bean>
+	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" >
 		<property name="service" ref="genreService"/>
 		<property name="serviceName" value="GenreWebService"/>

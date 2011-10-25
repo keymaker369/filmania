@@ -2,24 +2,31 @@ package org.seke.filmania.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.seke.filmania.dao.RoleDAO;
 import org.seke.filmania.domain.Role;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-public class RoleDAOImpl extends JpaDaoSupport implements RoleDAO {
+@Repository(value = "roleDAO")
+public class RoleDAOImpl implements RoleDAO {
 
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Transactional
 	public Role saveRole(Role role) {
 		if (role.getId() == null)
-			getJpaTemplate().persist(role);
+			em.persist(role);
 		else
-			getJpaTemplate().merge(role);
+			em.merge(role);
 		return role;
 	}
 
 	public List<Role> retrieveAll() {
-		return getJpaTemplate().find("from Role");
+		return em.createNamedQuery("from Role").getResultList();
 	}
 
 	

@@ -3,17 +3,23 @@ package org.seke.filmania.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.seke.filmania.dao.MovieDAO;
 import org.seke.filmania.domain.Movie;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.stereotype.Repository;
 
 /**
  * 
  * @author Nenad Seke Mar 26, 2011
  */
 @SuppressWarnings("unchecked")
-public class MovieDAOImpl extends JpaDaoSupport implements MovieDAO {
+@Repository(value = "movieDAO")
+public class MovieDAOImpl implements MovieDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -22,9 +28,9 @@ public class MovieDAOImpl extends JpaDaoSupport implements MovieDAO {
 	 */
 	public void save(Movie movie) {
 		if (movie.getId() == null) {
-			getJpaTemplate().persist(movie);
+			em.persist(movie);
 		}else{
-			getJpaTemplate().merge(movie);
+			em.merge(movie);
 		}
 	}
 
@@ -34,18 +40,16 @@ public class MovieDAOImpl extends JpaDaoSupport implements MovieDAO {
 	 * @see org.seke.filmania.dao.MovieDAO#retriveAllMovies()
 	 */
 	public List<Movie> retriveAllMovies() {
-		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
 
-		return manager.createNamedQuery(Movie.GET_All_MOVIES).getResultList();
+		return em.createNamedQuery(Movie.GET_All_MOVIES).getResultList();
 	}
 
 	public Movie retrieve(long id) {
-		return getJpaTemplate().find(Movie.class, id);
+		return em.find(Movie.class, id);
 	}
 
 	public List<Movie> retrieveMoviesStartingWith(String movieName) {
-		EntityManager manager = getJpaTemplate().getEntityManagerFactory().createEntityManager();
-		return manager.createQuery("SELECT m FROM Movie m WHERE m.name LIKE '" + movieName + "%'").getResultList();
+		return em.createQuery("SELECT m FROM Movie m WHERE m.name LIKE '" + movieName + "%'").getResultList();
 	}
 
 }
