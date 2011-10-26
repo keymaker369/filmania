@@ -2,7 +2,9 @@ package org.seke.filmania.service;
 
 import java.util.List;
 
+import org.seke.filmania.domain.Comment;
 import org.seke.filmania.domain.Movie;
+import org.seke.filmania.domain.User;
 import org.seke.filmania.model.MovieBean;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,5 +37,8 @@ public interface MovieService {
 	public Movie retrieveMovie(long id);
 
 	public List<Movie> retrieveMoviesStartingWith(String movieName);
+	
+	@Transactional
+	public void addMovieComment(long movieId,Comment comment,String username);
 
 }

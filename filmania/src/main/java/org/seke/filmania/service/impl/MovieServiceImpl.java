@@ -4,19 +4,28 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.seke.filmania.dao.CommentDAO;
 import org.seke.filmania.dao.MovieDAO;
+import org.seke.filmania.domain.Comment;
 import org.seke.filmania.domain.Genre;
 import org.seke.filmania.domain.Movie;
+import org.seke.filmania.domain.User;
 import org.seke.filmania.model.GenreBean;
 import org.seke.filmania.model.MovieBean;
+import org.seke.filmania.service.CommentService;
 import org.seke.filmania.service.GenreService;
 import org.seke.filmania.service.MovieService;
+import org.seke.filmania.service.UserService;
 
 public class MovieServiceImpl implements MovieService {
 
 	private MovieDAO movieDAO;
 
 	private GenreService genreService;
+
+	private UserService userService;
+	
+	private CommentDAO commentDAO;
 
 	public void saveMovie(MovieBean movieBean) {
 		Movie movie = createMovieFromMovieBean(movieBean);
@@ -54,6 +63,16 @@ public class MovieServiceImpl implements MovieService {
 		return getMovieDAO().retrieve(id);
 	}
 
+	public void addMovieComment(long movieId, Comment comment, String username) {
+		User user = getUserService().retrieveUser(username);
+		Movie movie = getMovieDAO().retrieve(movieId);
+		comment.setMovie(movie);
+		comment.setUser(user);
+		movie.getComments().add(comment);
+		user.getComments().add(comment);
+		getCommentDAO().saveComment(comment);
+	}
+
 	public MovieDAO getMovieDAO() {
 		return movieDAO;
 	}
@@ -62,12 +81,29 @@ public class MovieServiceImpl implements MovieService {
 		this.movieDAO = movieDAO;
 	}
 
+	
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	public GenreService getGenreService() {
 		return genreService;
 	}
 
 	public void setGenreService(GenreService genreService) {
 		this.genreService = genreService;
+	}
+
+	public CommentDAO getCommentDAO() {
+		return commentDAO;
+	}
+
+	public void setCommentDAO(CommentDAO commentDAO) {
+		this.commentDAO = commentDAO;
 	}
 
 }

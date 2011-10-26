@@ -15,7 +15,7 @@ public class CommentDAOImpl implements CommentDAO {
 	private EntityManager em;
 	
 	public Comment saveComment(Comment comment) {
-		if (comment.getCommentId().getId() == null)
+		if (comment.getCommentId() == null || comment.getCommentId().getId() == null)
 			em.persist(comment);
 		else
 			em.merge(comment);
