@@ -58,20 +58,11 @@ public class CommentController {
 			return "/movie/addComment";
 		}
 
-		Movie commentedMovie = getMovieService().retrieveMovie(addCommentCommand.getMovieId());
 		Comment comment = new Comment();
 		comment.setContent(addCommentCommand.getComment());
-		User tempUser = getUserService().retrieveUser(principal.getName());
-		comment.setUser(tempUser);
-		comment.setMovie(commentedMovie);
-		CommentId ci = new CommentId();
-		ci.setUserId(tempUser.getId());
-		ci.setMovieId(commentedMovie.getId());
-		comment.setCommentId(ci);
 		comment.setInputDate(new Date(System.currentTimeMillis()));
-		//getCommentService().saveComment(comment, tempUser);
-		commentedMovie.getComments().add(comment);
-		getMovieService().saveMovie(commentedMovie);
+
+		getMovieService().addMovieComment(addCommentCommand.getMovieId(), comment, principal.getName());
 		return "redirect:/movie/view?id=" + addCommentCommand.getMovieId();
 	}
 
