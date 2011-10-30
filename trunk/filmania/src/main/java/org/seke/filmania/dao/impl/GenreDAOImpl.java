@@ -40,7 +40,7 @@ public class GenreDAOImpl implements GenreDAO {
 	 */
 
 	public List<Genre> retrieveAll() {
-		return em.createNamedQuery("from Genre").getResultList();
+		return em.createNamedQuery(Genre.GET_ALL_GENRES).getResultList();
 	}
 
 	/*

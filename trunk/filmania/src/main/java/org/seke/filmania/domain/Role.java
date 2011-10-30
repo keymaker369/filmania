@@ -54,10 +54,11 @@ public class Role implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_ROLE", 
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	/* TODO ovo treba obrisati od kad sam izvalio iz knjige Pro jpa 2
+	 * @JoinTable(name = "USER_ROLE", 
 			   joinColumns = {@JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, 
-			   inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
+			   inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })*/
 	public Set<User> getUsers() {
 		return this.users;
 	}

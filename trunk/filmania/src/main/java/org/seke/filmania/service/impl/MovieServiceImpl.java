@@ -68,8 +68,6 @@ public class MovieServiceImpl implements MovieService {
 		Movie movie = getMovieDAO().retrieve(movieId);
 		comment.setMovie(movie);
 		comment.setUser(user);
-		movie.getComments().add(comment);
-		user.getComments().add(comment);
 		getCommentDAO().saveComment(comment);
 	}
 

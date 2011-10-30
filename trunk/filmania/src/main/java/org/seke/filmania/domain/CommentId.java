@@ -17,9 +17,10 @@ public class CommentId implements Serializable {
 	 */
 	private static final long serialVersionUID = -275636493390380334L;
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private Long userId;
+	
 	private Long movieId;
 
 	public CommentId() {
@@ -31,6 +32,7 @@ public class CommentId implements Serializable {
 		this.movieId = movieId;
 	}
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", nullable = false)
 	public Long getId() {
 		return this.id;
@@ -68,6 +70,11 @@ public class CommentId implements Serializable {
 		CommentId castOther = (CommentId) other;
 
 		return (this.getId() == castOther.getId()) && (this.getUserId() == castOther.getUserId()) && (this.getMovieId() == castOther.getMovieId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return id.hashCode() + userId.hashCode() + movieId.hashCode();
 	}
 
 }

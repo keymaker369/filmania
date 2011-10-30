@@ -33,6 +33,7 @@ public class RatingController {
 
 	@RequestMapping(value = "/movie/rateMovie", method = RequestMethod.GET, params = "idMovie")
 	public ModelAndView loadAddMarkPage(@RequestParam("idMovie") String idMovie) {
+		
 		Movie movieToRate = getMovieService().retrieveMovie(Long.parseLong(idMovie));
 		ModelAndView mav = new ModelAndView("/movie/rateMovie", "movie", movieToRate);
 		mav.addObject("addMarkCommand", new AddMarkCommand());
@@ -41,17 +42,17 @@ public class RatingController {
 
 	@RequestMapping(value = "/movie/rateMovie", method = RequestMethod.POST, params = "saveMark")
 	public String addCommentPage(@ModelAttribute("addMarkCommand") AddMarkCommand command, Principal principal) {
-		Movie commentedMovie = getMovieService().retrieveMovie(command.getMovieId());
+
 		Rating rating = new Rating();
 		rating.setMark(command.getMark());
+		rating.setInputDate(new Date(System.currentTimeMillis()));
+		
+		Movie commentedMovie = getMovieService().retrieveMovie(command.getMovieId());
 		User tempUser = getUserService().retrieveUser(principal.getName());
+		
 		rating.setUser(tempUser);
 		rating.setMovie(commentedMovie);
-		RatingId ci = new RatingId();
-		ci.setUserId(tempUser.getId());
-		ci.setMovieId(commentedMovie.getId());
-		rating.setRatingId(ci);
-		rating.setInputDate(new Date(System.currentTimeMillis()));
+		
 		getRatingService().saveRating(rating);
 		return "redirect:/movie/view?id=" + command.getMovieId();
 	}
