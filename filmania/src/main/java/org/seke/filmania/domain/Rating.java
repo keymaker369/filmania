@@ -23,27 +23,16 @@ public class Rating implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8577896571409976635L;
-
-	@EmbeddedId
-	@AttributeOverrides({ 
-		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
-		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
-		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
+	
+	
 	private RatingId ratingId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
 	private Movie movie;
 	
-	@Column(name = "MARK")
 	private int mark;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "INPUTDATE", length = 19)
 	private Date inputDate;
 
 	public Rating() {
@@ -63,6 +52,11 @@ public class Rating implements Serializable {
 		this.inputDate = inputDate;
 	}
 
+	@EmbeddedId
+	@AttributeOverrides({ 
+		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
+		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
+		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
 	public RatingId getRatingId() {
 		return ratingId;
 	}
@@ -71,6 +65,8 @@ public class Rating implements Serializable {
 		this.ratingId = ratingId;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public User getUser() {
 		return user;
 	}
@@ -79,6 +75,8 @@ public class Rating implements Serializable {
 		this.user = user;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
 	public Movie getMovie() {
 		return movie;
 	}
@@ -87,6 +85,7 @@ public class Rating implements Serializable {
 		this.movie = movie;
 	}
 
+	@Column(name = "MARK")
 	public int getMark() {
 		return mark;
 	}
@@ -95,6 +94,8 @@ public class Rating implements Serializable {
 		this.mark = mark;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "INPUTDATE", length = 19)
 	public Date getInputDate() {
 		return inputDate;
 	}

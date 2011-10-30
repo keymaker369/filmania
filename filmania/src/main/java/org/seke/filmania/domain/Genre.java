@@ -18,11 +18,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "GENRE")
-@NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name ") })
+@NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, 
+							query = "Select g from Genre g where g.name= :name "), 
+				
+				@NamedQuery(name = Genre.GET_ALL_GENRES, 
+							query = "Select g from Genre g ")})
 public class Genre {
 
 	public static final String GET_GENRE_BY_NAME = "Genre.getGenreByName";
 
+	public static final String GET_ALL_GENRES = "Genre.getAllGenres";
+	
 	private Integer id;
 	private String name;
 	private Set<Movie> movies = new HashSet<Movie>(0);

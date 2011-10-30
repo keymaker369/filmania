@@ -17,6 +17,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "COMMENT")
@@ -27,29 +28,14 @@ public class Comment implements Serializable {
 	 */
 	private static final long serialVersionUID = -8524802817720830386L;
 
-	@EmbeddedId
-	@AttributeOverrides({ 
-		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
-		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
-		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private CommentId commentId;
-	
-	@MapsId(value = "userId")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+
 	private User user;
-	
-	@MapsId(value = "movieId")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
+
 	private Movie movie;
-	
-	@Column(name = "CONTENT")
+
 	private String content;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "INPUTDATE", length = 19)
+
 	private Date inputDate;
 
 	public Comment() {
@@ -69,6 +55,12 @@ public class Comment implements Serializable {
 		this.inputDate = inputDate;
 	}
 
+	@EmbeddedId
+	@AttributeOverrides({ 
+		@AttributeOverride(name = "id", column = @Column(name = "ID", nullable = false)), 
+		@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false)),
+		@AttributeOverride(name = "movieId", column = @Column(name = "MOVIE_ID", nullable = false)) })
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public CommentId getCommentId() {
 		return this.commentId;
 	}
@@ -76,7 +68,28 @@ public class Comment implements Serializable {
 	public void setCommentId(CommentId commentId) {
 		this.commentId = commentId;
 	}
+
+	@Transient
+	public long getUserId(){
+		return getCommentId().getUserId();
+	}
 	
+	public void setUserId(long userId){
+		getCommentId().setUserId(userId);
+	}
+	
+	@Transient
+	public long getMovieId(){
+		return getCommentId().getMovieId();
+	}
+	
+	public void setMovieId(long movieId){
+		getCommentId().setMovieId(movieId);
+	}
+	
+	@MapsId(value = "userId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public User getUser() {
 		return this.user;
 	}
@@ -84,7 +97,10 @@ public class Comment implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	@MapsId(value = "movieId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MOVIE_ID", nullable = false, insertable = false, updatable = false)
 	public Movie getMovie() {
 		return this.movie;
 	}
@@ -93,6 +109,7 @@ public class Comment implements Serializable {
 		this.movie = movie;
 	}
 
+	@Column(name = "CONTENT")
 	public String getContent() {
 		return this.content;
 	}
@@ -100,7 +117,10 @@ public class Comment implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
+	//TODO TemporalType.TIMESTAMP mislim da ovde ne treba timestam vec nesto drugo jer ni u bazi ta kolona nije timestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "INPUTDATE", length = 19)
 	public Date getInputDate() {
 		return this.inputDate;
 	}

@@ -17,7 +17,6 @@ public class RatingId implements Serializable {
 	 */
 	private static final long serialVersionUID = -6463109255344237145L;
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private Long userId;
 	private Long movieId;
@@ -31,6 +30,7 @@ public class RatingId implements Serializable {
 		this.movieId = movieId;
 	}
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", nullable = false)
 	public Long getId() {
 		return this.id;
