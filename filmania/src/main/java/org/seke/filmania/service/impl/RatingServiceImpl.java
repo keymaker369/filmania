@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class RatingServiceImpl implements RatingService {
 
-	private RatingDAO radingDAO;
+	private RatingDAO ratingDAO;
 
 	private MovieDAO movieDAO;
 
@@ -22,16 +22,17 @@ public class RatingServiceImpl implements RatingService {
 		double score = calculateScore(movie.getRatings());
 		movie.setRank((score + rating.getMark()) / (numberOfRatings + 1));
 		movieDAO.save(movie);
-		return getRadingDAO().saveRating(rating);
+		return getRatingDAO().saveRating(rating);
 	}
 
-	public RatingDAO getRadingDAO() {
-		return radingDAO;
+	public RatingDAO getRatingDAO() {
+		return ratingDAO;
 	}
 
-	public void setRadingDAO(RatingDAO radingDAO) {
-		this.radingDAO = radingDAO;
+	public void setRatingDAO(RatingDAO ratingDAO) {
+		this.ratingDAO = ratingDAO;
 	}
+
 
 	public MovieDAO getMovieDAO() {
 		return movieDAO;

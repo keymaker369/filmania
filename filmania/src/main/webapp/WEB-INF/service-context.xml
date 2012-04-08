@@ -23,12 +23,8 @@
 	</bean>
 	
 	<bean id="ratingService" class="org.seke.filmania.service.impl.RatingServiceImpl">
-		<property name="radingDAO" ref="ratingDAO" />
+		<property name="ratingDAO" ref="ratingDAO" />
 		<property name="movieDAO" ref="movieDAO"></property>
-	</bean>
-	
-	<bean id="roleService" class="org.seke.filmania.service.impl.RoleServiceImpl">
-		<property name="roleDAO" ref="roleDAO"/>
 	</bean>
 	
 	<bean id="commentService" class="org.seke.filmania.service.impl.CommentServiceImpl">

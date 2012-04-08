@@ -1,8 +1,10 @@
 package org.seke.filmania.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -45,6 +47,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "USER")
 public class User implements UserDetails {
 
+	public static enum Role {
+		MEMBER, ADMIN;
+		
+		public static List<Role> retrieveAll() {
+			List<Role> roles = new ArrayList<Role>();
+			roles.add(MEMBER);
+			roles.add(ADMIN);
+			return roles;
+		}
+	}
+	
 	/**
 	 * 
 	 */
@@ -84,17 +97,14 @@ public class User implements UserDetails {
 	@Column(name = "ENABLED")
 	private boolean enabled;
 
+	@Column(name ="ROLE")
+	private Role role;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Comment> comments = new HashSet<Comment>(0);
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Movie> movies = new HashSet<Movie>(0);
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_ROLE", 
-			   joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, 
-               inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
-	private Set<Role> roles = new HashSet<Role>(0);
 
 	public User() {
 	}
@@ -179,19 +189,26 @@ public class User implements UserDetails {
 		this.movies = movies;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Collection<GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
-		for (Role role : roles) {
-			authorities.add(new GrantedAuthorityImpl(role.getName()));
+		
+		if (role == Role.MEMBER) {
+			authorities.add(new GrantedAuthorityImpl(role.toString()));
 		}
+		
+		if (role == Role.ADMIN) {
+			authorities.add(new GrantedAuthorityImpl(Role.MEMBER.toString()));
+			authorities.add(new GrantedAuthorityImpl(role.toString()));
+		}
+		
 		return authorities;
 	}
 
