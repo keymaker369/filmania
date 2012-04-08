@@ -1,10 +1,4 @@
 
-create table filmania.ROLE (
-	ID int NOT NULL AUTO_INCREMENT,
-	NAME VARCHAR(20),
-	PRIMARY KEY (ID)	
-);
-
 create table filmania.GENRE (
 	ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	NAME VARCHAR(20)
@@ -18,7 +12,8 @@ create table filmania.USER (
 	ACCOUNTNONEXPIRED BOOL,
 	ACCOUNTNONLOCKED BOOL,
 	CREDINTIALSNONEXPIRED BOOL,
-	ENABLED BOOL
+	ENABLED BOOL,
+	ROLE int
 );
 
 create table filmania.USER_ROLE(
