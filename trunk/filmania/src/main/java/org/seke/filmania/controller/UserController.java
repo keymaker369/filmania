@@ -1,16 +1,14 @@
 package org.seke.filmania.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.seke.filmania.controller.validation.UserValidator;
-import org.seke.filmania.domain.Role;
 import org.seke.filmania.domain.User;
+import org.seke.filmania.domain.User.Role;
 import org.seke.filmania.model.UserCommand;
-import org.seke.filmania.service.RoleService;
 import org.seke.filmania.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +26,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private RoleService roleService;
 
 	@RequestMapping(value = "/user/add")
 	public ModelAndView openAddNewUserPage() {
@@ -82,13 +77,14 @@ public class UserController {
 		user.setCredentialsNonExpired(userToEdit.isCredentialsNonExpired());
 		user.setEnabled(userToEdit.isEnabled());
 
-		for (Role role : userToEdit.getRoles()) {
-			if (role.getName().equals("member"))
+		if (userToEdit.getRole() != null) {
+			if (userToEdit.getRole().toString().equals("MEMBER"))
 				user.setMember(true);
-			if (role.getName().equals("admin"))
+			if (userToEdit.getRole().toString().equals("ADMIN")) {
+				user.setMember(true);
 				user.setAdmin(true);
+			}
 		}
-
 		return new ModelAndView("/user/edit", "user", user);
 	}
 
@@ -107,39 +103,14 @@ public class UserController {
 		user.setCredentialsNonExpired(command.isCredentialsNonExpired());
 		user.setEnabled(command.isEnabled());
 
-		List<Role> allRoles = getRoleService().retrieveAll();
-		for (Role role : allRoles) {
-			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) == null && role.getName().equals("member") && command.isMember()) {
-				user.getRoles().add(role);
-			}
-			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) == null && role.getName().equals("admin") && command.isAdmin()) {
-				user.getRoles().add(role);
-			}
-			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) != null && role.getName().equals("member") && !command.isMember()) {
-				removeRoleFromSet(user.getRoles(), role.getName());
-			}
-			if (getRoleFromSetOfRolesByName(user.getRoles(), role.getName()) != null && role.getName().equals("admin") && !command.isAdmin()) {
-				removeRoleFromSet(user.getRoles(), role.getName());
-			}
-		}
-
+		if(command.isMember()) 
+			user.setRole(Role.MEMBER);
+		
+		if(command.isAdmin()) 
+			user.setRole(Role.ADMIN);
+		
 		getUserService().updateUser(user);
 		return "redirect:/index.jsp";
-	}
-
-	private Role getRoleFromSetOfRolesByName(Set<Role> roles, String name) {
-		for (Role role : roles) {
-			if (role.getName().equals(name))
-				return role;
-		}
-		return null;
-	}
-
-	private void removeRoleFromSet(Set<Role> roles, String roleName) {
-		for (Role role : roles) {
-			if (role.getName().equals(roleName))
-				roles.remove(role);
-		}
 	}
 
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET, params = "username")
@@ -162,14 +133,6 @@ public class UserController {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	public RoleService getRoleService() {
-		return roleService;
-	}
-
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
 	}
 
 }
