@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<GENRE ID='1' NAME="name1"/>
+	<GENRE ID='2' NAME="name2"/>
+	<GENRE ID='3' NAME="name3"/>
+</dataset>
