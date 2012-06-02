@@ -18,19 +18,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "GENRE")
-@NamedQueries({ @NamedQuery(name = Genre.GET_GENRE_BY_NAME, 
-							query = "Select g from Genre g where g.name= :name "), 
-				
-				@NamedQuery(name = Genre.GET_ALL_GENRES, 
-							query = "Select g from Genre g ")})
+@NamedQueries({
+		@NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name "),
+
+		@NamedQuery(name = Genre.GET_ALL_GENRES, query = "Select g from Genre g ") })
 public class Genre {
 
 	public static final String GET_GENRE_BY_NAME = "Genre.getGenreByName";
 
 	public static final String GET_ALL_GENRES = "Genre.getAllGenres";
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
+	@Column(name = "NAME", length = 20)
 	private String name;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "movie_genre", 
+		joinColumns = {@JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) }, 
+		inverseJoinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) })
 	private Set<Movie> movies = new HashSet<Movie>(0);
 
 	public Genre() {
@@ -41,9 +47,6 @@ public class Genre {
 		this.movies = movies;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -52,7 +55,6 @@ public class Genre {
 		this.id = id;
 	}
 
-	@Column(name = "NAME", length = 20)
 	public String getName() {
 		return this.name;
 	}
@@ -61,8 +63,6 @@ public class Genre {
 		this.name = name;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "movie_genre", joinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) })
 	public Set<Movie> getMovies() {
 		return this.movies;
 	}
