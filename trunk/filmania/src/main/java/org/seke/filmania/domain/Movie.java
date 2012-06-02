@@ -33,31 +33,24 @@ public class Movie {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
-	private User user;
-	
 	@Column(name = "NAME", length = 20)
 	private String name;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "INPUTDATE", length = 19)
 	private Date inputDate;
-	
 	@Column(name = "RANK", precision = 22, scale = 0)
 	private Double rank;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false)
+	private User user;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", cascade = {CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Comment> comments = new HashSet<Comment>(0);
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", cascade = {CascadeType.MERGE, CascadeType.PERSIST })
 	private Set<Rating> ratings = new HashSet<Rating>(0);
-	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "MOVIE_GENRE", 
-			joinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) })
+		joinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) }, 
+		inverseJoinColumns = { @JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) })
 	private Set<Genre> genres = new HashSet<Genre>(0);
 
 	public Movie() {
@@ -67,7 +60,8 @@ public class Movie {
 		this.user = user;
 	}
 
-	public Movie(User user, String name, Date inputDate, Double rank, Set<Comment> comments, Set<Genre> genres) {
+	public Movie(User user, String name, Date inputDate, Double rank,
+			Set<Comment> comments, Set<Genre> genres) {
 		this.user = user;
 		this.name = name;
 		this.inputDate = inputDate;
