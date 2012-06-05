@@ -32,6 +32,7 @@
 				<property name="databasePlatform" value="${db.dialect}" />
 			</bean>
 		</property>
+		<property name="persistenceUnitName" value="persistentObjects"/>
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"  >
