@@ -40,7 +40,7 @@ public class GenreDaoImplTest  {
 	private GenreDAO genreDAO;
 	
 	@Before
-	public void before() throws DatabaseUnitException, SQLException, FileNotFoundException, IOException{
+	public void before() throws DatabaseUnitException, SQLException, FileNotFoundException, IOException {
 		 
 		DataSource dataSource = (DataSource)applicationContext.getBean("dataSource");
 		Connection con = DataSourceUtils.getConnection(dataSource);
@@ -82,7 +82,7 @@ public class GenreDaoImplTest  {
 		genreDAO.create(genre);
 		Assert.assertNotNull(genre.getId());
 		
-		Assert.assertTrue(genreDAO.retrieveAll().size()>0);
+		Assert.assertTrue(genreDAO.retrieveAll().size() > 0);
 		Assert.assertTrue(genreDAO.retrieveAll().size() == 4);
 		
 	}
