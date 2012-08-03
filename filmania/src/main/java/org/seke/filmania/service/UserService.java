@@ -2,6 +2,7 @@ package org.seke.filmania.service;
 
 import java.util.List;
 
+import org.apache.taglibs.standard.lang.jstl.DivideOperator;
 import org.seke.filmania.domain.User;
 
 public interface UserService {
@@ -41,4 +42,13 @@ public interface UserService {
 	 * @param user
 	 */
 	public void deleteUser(String username);
+	
+	public int saberi(int a, int b);
+	
+	public int podeli(int a, int b) throws ArithmeticException;
+	
+	public List<String> vratiKosrisnickaImenaKorisnika();
+	
+	
+	
 }
