@@ -104,7 +104,7 @@ public class UserServiceTest {
 //	@Test
 //	public void saberiDvaBrojaTest(){
 //		int actualResult = userServiceImplUnderTest.saberi(3, 6);
-//		int expectedResult = 8;
+//		int expectedResult = 9;
 //		assertSame(expectedResult, actualResult);
 //	}
 	
