@@ -8,7 +8,7 @@ import org.seke.filmania.domain.User;
 
 public class UserDaolMockImpl implements UserDAO {
 
-	HashMap<Long, User> users = new HashMap<>();
+	HashMap<Long, User> users = new HashMap<Long, User>();
 	
 	@Override
 	public void create(User user) {

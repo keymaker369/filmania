@@ -34,24 +34,25 @@ import org.springframework.transaction.annotation.Transactional;
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.*;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration({"classpath:**/service-context-test.xml", "classpath:**/dao-context-test.xml"})
-//@Transactional
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"classpath:**/service-context-test.xml", "classpath:**/dao-context-test.xml"})
+@Transactional
 public class UserServiceTest {
 
-//	@Autowired
-//	private ApplicationContext applicationContext;
+	@Autowired
+	private ApplicationContext applicationContext;
 //	
-//	@Autowired
-//	private UserDAO userDAO;
+	@Autowired
+	private UserDAO userDAO;
 //	
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
 	
 	private UserServiceImpl userServiceImplUnderTest = new UserServiceImpl();
 	
 //	@Before
 //	public void setUp() {
+//		System.out.println("1111111111111111");
 //		UserDaolMockImpl userDaolMockImpl = new UserDaolMockImpl();
 //		
 //		User zika = new User();
@@ -85,40 +86,40 @@ public class UserServiceTest {
 //		userServiceImplUnderTest.setUserDAO(userDAOMock);
 //	}
 	
-//	@Before
-//	public void before() throws DatabaseUnitException, SQLException, FileNotFoundException, IOException {
-//		 
-//		DataSource dataSource = (DataSource)applicationContext.getBean("dataSource");
-//		Connection con = DataSourceUtils.getConnection(dataSource);
-//		IDatabaseConnection dbUnitCon = new DatabaseConnection(con);
-//		IDataSet dataSet = new  FlatXmlDataSetBuilder().build(new FileInputStream("./src/test/resources/dataset.xml"));
-//		
-//		try {
-//			DatabaseOperation.REFRESH.execute(dbUnitCon, dataSet);
-//		} finally {
-//			DataSourceUtils.releaseConnection(con, dataSource);
-//		}
-//	}
+	@Before
+	public void before() throws DatabaseUnitException, SQLException, FileNotFoundException, IOException {
+		 
+		DataSource dataSource = (DataSource)applicationContext.getBean("dataSource");
+		Connection con = DataSourceUtils.getConnection(dataSource);
+		IDatabaseConnection dbUnitCon = new DatabaseConnection(con);
+		IDataSet dataSet = new  FlatXmlDataSetBuilder().build(new FileInputStream("./src/test/resources/dataset.xml"));
+		
+		try {
+			DatabaseOperation.REFRESH.execute(dbUnitCon, dataSet);
+		} finally {
+			DataSourceUtils.releaseConnection(con, dataSource);
+		}
+	}
 	
 //	
-//	@Test
-//	public void saberiDvaBrojaTest(){
-//		int actualResult = userServiceImplUnderTest.saberi(3, 6);
-//		int expectedResult = 9;
-//		assertSame(expectedResult, actualResult);
-//	}
+	@Test
+	public void saberiDvaBrojaTest(){
+		int actualResult = userServiceImplUnderTest.saberi(3, 6);
+		int expectedResult = 9;
+		assertSame(expectedResult, actualResult);
+	}
 	
-//	@Test
-//	public void podeliDvaBrojaTest(){
-//		int actualResult = userServiceImplUnderTest.podeli(6, 3);
-//		int expectedResult = 2;
-//		assertSame(expectedResult, actualResult);
-//	}
+	@Test
+	public void podeliDvaBrojaTest(){
+		int actualResult = userServiceImplUnderTest.podeli(6, 3);
+		int expectedResult = 2;
+		assertSame(expectedResult, actualResult);
+	}
 	
-//	@Test(expected = ArithmeticException.class)
-//	public void podeliSaNulomTest(){
-//		userServiceImplUnderTest.podeli(6, 0);
-//	}
+	@Test(expected = ArithmeticException.class)
+	public void podeliSaNulomTest(){
+		userServiceImplUnderTest.podeli(6, 0);
+	}
 	
 //	@Test
 //	public void padaTest(){
@@ -128,6 +129,9 @@ public class UserServiceTest {
 //	@Test
 //	public void vratiKosrisnickaImenaKorisnikaTest() {
 //		List<String> listaKosrisnickihImena = userServiceImplUnderTest.vratiKosrisnickaImenaKorisnika();
+//		
+//		assertTrue(listaKosrisnickihImena.size() == 2);
+//		
 //		for (String korisnickoIme : listaKosrisnickihImena) {
 //			System.out.println(korisnickoIme);
 //			assertTrue(korisnickoIme.contains(": "));
@@ -135,23 +139,23 @@ public class UserServiceTest {
 //		
 //	}
 	
-//	@Test
-//	public void vratiKorisnikeTest() {
-//		assertTrue(userDAO.getAllUsers().size() == 2);
-//	}
+	@Test
+	public void vratiKorisnikeTest() {
+		assertTrue(userDAO.getAllUsers().size() == 2);
+	}
 	
-//	@Test
-//	public void sacuvajKorisnikaTest() {
-//		User mika = new User();
-//		mika.setUsername("mika");
-//		mika.setPassword("mika");
-//		
-//		assertNull(mika.getId());
-//		
-//		userService.saveUser(mika);
-//		
-//		assertNotNull(mika.getId());
-//		
-//	}
+	@Test
+	public void sacuvajKorisnikaTest() {
+		User mika = new User();
+		mika.setUsername("mika");
+		mika.setPassword("mika");
+		
+		assertNull(mika.getId());
+		
+		userService.saveUser(mika);
+		
+		assertNotNull(mika.getId());
+		
+	}
 	
 }

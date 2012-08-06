@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	public List<String> vratiKosrisnickaImenaKorisnika() {
-		List<String> listaKosrisnickihImena = new ArrayList<>();
+		List<String> listaKosrisnickihImena = new ArrayList<String>();
 		List<User> useri = userDAO.getAllUsers();
 		for (User user : useri) {
 			listaKosrisnickihImena.add("username: " + user.getUsername());
