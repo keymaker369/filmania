@@ -34,7 +34,7 @@ public class Genre {
 	@Column(name = "NAME", length = 20)
 	private String name;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "movie_genre", 
+	@JoinTable(name = "MOVIE_GENRE", 
 		joinColumns = {@JoinColumn(name = "GENRE_ID", nullable = false, updatable = false) }, 
 		inverseJoinColumns = { @JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false) })
 	private Set<Movie> movies = new HashSet<Movie>(0);
