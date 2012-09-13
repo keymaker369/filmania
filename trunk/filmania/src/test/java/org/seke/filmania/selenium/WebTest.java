@@ -34,6 +34,11 @@ public class WebTest {
 		// screenshotHelper = new ScreenshotHelper();
 	}
 
+	@After
+	public void tearDown() {
+		driver.quit();
+	}
+	
 	@Test
 	public void pageTitleAfterSearchShouldBeginWithDrupal() throws IOException {
 
@@ -48,5 +53,8 @@ public class WebTest {
 				return d.getTitle().toLowerCase().startsWith("drupal!");
 			}
 		}));
+		
 	}
+	
+	
 }
