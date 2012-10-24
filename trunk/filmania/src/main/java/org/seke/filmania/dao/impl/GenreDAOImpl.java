@@ -40,7 +40,7 @@ public class GenreDAOImpl implements GenreDAO {
 	 */
 
 	public List<Genre> retrieveAll() {
-		return em.createNamedQuery(Genre.GET_ALL_GENRES).getResultList();
+		return em.createNamedQuery(Genre.GET_ALL_GENRES).setFirstResult(0).setMaxResults(100).getResultList();
 	}
 
 	/*
@@ -48,11 +48,15 @@ public class GenreDAOImpl implements GenreDAO {
 	 * 
 	 * @see org.seke.filmania.dao.GenreDAO#retrieve(java.lang.String)
 	 */
-	public Genre retrieve(String name) {
-		return (Genre) em.createNamedQuery(Genre.GET_GENRE_BY_NAME).setParameter("name", name).getSingleResult();
+	public Genre retrieve(String id) {
+		return (Genre) em.createNamedQuery(Genre.GET_GENRE_BY_NAME).setParameter("name", Integer.parseInt(id)).getSingleResult();
 	}
 
 	public void updateGenre(Genre genre) {
+		
+		Genre genreFromDB = em.find(Genre.class, genre.getId());
+		genre.setMovies(genreFromDB.getMovies());
+		
 		em.merge(genre);
 	}
 

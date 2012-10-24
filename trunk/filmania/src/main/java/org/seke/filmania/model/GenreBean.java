@@ -4,6 +4,7 @@ import org.seke.filmania.domain.Genre;
 
 public class GenreBean {
 
+	private long id;
 	private Genre genre;
 	private boolean assigned;
 	private String name;
@@ -31,5 +32,13 @@ public class GenreBean {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 
 }

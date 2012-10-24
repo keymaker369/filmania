@@ -29,7 +29,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 				
 				@NamedQuery(name = User.GET_All_USERS, 
 							query = "Select u " +
-									"from User u"),
+									"from User u " +
+									"order by u.id desc"),
 									
 				@NamedQuery(name = User.GET_USER_BY_USERNAME, 
 							query = "Select u " +

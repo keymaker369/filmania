@@ -1,7 +1,7 @@
 package org.seke.filmania.model;
 
 import java.sql.Timestamp;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.seke.filmania.domain.User;
@@ -9,7 +9,7 @@ import org.seke.filmania.domain.User;
 public class MovieBean {
 
 	private String name;
-	private List<GenreBean> allGenres = new LinkedList<GenreBean>();
+	private List<GenreBean> allGenres = new ArrayList<GenreBean>();
 	private Timestamp inputDate;
 	private User user;
 

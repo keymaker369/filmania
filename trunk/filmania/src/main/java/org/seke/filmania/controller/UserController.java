@@ -63,9 +63,9 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/user/edit", method = RequestMethod.GET, params = "username")
-	public ModelAndView loadEditUserPage(@RequestParam("username") String username, HttpSession httpSession) {
-		User userToEdit = getUserService().retrieveUser(username);
+	@RequestMapping(value = "/user/edit", method = RequestMethod.GET, params = "id")
+	public ModelAndView loadEditUserPage(@RequestParam("id") Long id, HttpSession httpSession) {
+		User userToEdit = getUserService().retrieveUser(id);
 
 		UserCommand user = new UserCommand();
 		user.setId(userToEdit.getId());
@@ -113,17 +113,18 @@ public class UserController {
 		return "redirect:/index.jsp";
 	}
 
-	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET, params = "username")
-	public ModelAndView loadDeleteUserPage(@RequestParam("username") String username) {
-		User userToDelete = getUserService().retrieveUser(username);
+	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET, params = "id")
+	public ModelAndView loadDeleteUserPage(@RequestParam("id") Long id) {
+		User userToDelete = getUserService().retrieveUser(id);
 		UserCommand command = new UserCommand();
 		command.setUsername(userToDelete.getUsername());
+		command.setId(userToDelete.getId());
 		return new ModelAndView("/user/deleteUser", "user", command);
 	}
 
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.POST, params = "delete")
-	public String deleteUser(@RequestParam("username") String username) {
-		getUserService().deleteUser(username);
+	public String deleteUser(@RequestParam("id") String id) {
+		getUserService().deleteUser(id);
 		return "redirect:/user/viewUsers";
 	}
 
