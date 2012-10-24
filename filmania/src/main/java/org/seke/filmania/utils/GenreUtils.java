@@ -15,6 +15,7 @@ public class GenreUtils {
 		GenreBean genreBean = new GenreBean();
 		genreBean.setGenre(genre);
 		genreBean.setName(genre.getName());
+		genreBean.setId(genre.getId());
 		return genreBean;
 	}
 	

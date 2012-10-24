@@ -41,7 +41,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 */
 	public List<Movie> retriveAllMovies() {
 
-		return em.createNamedQuery(Movie.GET_All_MOVIES).getResultList();
+		return em.createNamedQuery(Movie.GET_All_MOVIES).setFirstResult(0).setMaxResults(100).getResultList();
 	}
 
 	public Movie retrieve(long id) {

@@ -47,7 +47,7 @@ public class MovieServiceImpl implements MovieService {
 		movie.setGenres(new HashSet<Genre>());
 		for (GenreBean genreBean : movieBean.getAllGenres()) {
 			if (genreBean.isAssigned()) {
-				movie.getGenres().add(getGenreService().retrieveGenre(genreBean.getName()));
+				movie.getGenres().add(getGenreService().retrieveGenre(genreBean.getId() + ""));
 			}
 		}
 		movie.setRank(new Double(0));

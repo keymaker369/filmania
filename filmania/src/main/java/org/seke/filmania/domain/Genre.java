@@ -3,6 +3,7 @@ package org.seke.filmania.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "GENRE")
 @NamedQueries({
-		@NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.name= :name "),
+		@NamedQuery(name = Genre.GET_GENRE_BY_NAME, query = "Select g from Genre g where g.id= :name "),
 
 		@NamedQuery(name = Genre.GET_ALL_GENRES, query = "Select g from Genre g ") })
 public class Genre {

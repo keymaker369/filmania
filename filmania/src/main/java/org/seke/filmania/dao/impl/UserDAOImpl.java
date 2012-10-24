@@ -46,7 +46,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	public List<User> getAllUsers() {
 		//return getJpaTemplate().findByNamedQuery(User.GET_All_USERS);
-		return em.createNamedQuery(User.GET_All_USERS).getResultList();
+		return em.createNamedQuery(User.GET_All_USERS).setFirstResult(0).setMaxResults(100).getResultList();
 	}
 
 	/*
@@ -80,9 +80,9 @@ public class UserDAOImpl implements UserDAO {
 	 * 
 	 * @see org.seke.filmania.dao.UserDAO#deleteUser(java.lang.String)
 	 */
-	public void deleteUser(String username) {
-		User user = (User) em.createNamedQuery(User.GET_USER_BY_USERNAME).setParameter("username", username).getSingleResult();
-		user = em.find(User.class, user.getId());
+	public void deleteUser(String id) {
+		User user = (User) em.createNamedQuery(User.GET_USER_BY_ID).setParameter("id", Long.parseLong(id)).getSingleResult();
+//		user = em.find(User.class, user.getId());
 		em.remove(user);
 	}
 

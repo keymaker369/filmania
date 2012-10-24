@@ -68,8 +68,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	 * @see org.seke.filmania.service.UserService#deleteUser(java.lang.String)
 	 */
 	@Transactional
-	public void deleteUser(String username) {
-		getUserDAO().deleteUser(username);
+	public void deleteUser(String id) {
+		getUserDAO().deleteUser(id);
 	}
 	
 	public UserDAO getUserDAO() {

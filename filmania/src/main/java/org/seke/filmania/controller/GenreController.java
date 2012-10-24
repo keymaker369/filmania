@@ -52,8 +52,8 @@ public class GenreController {
 	}
 
 	@RequestMapping(value = "/genre/editGenre", method = RequestMethod.GET, params = "name")
-	public ModelAndView loadPageEditGenre(@RequestParam("name") String name) {
-		Genre genreToEdit = getGenreService().retrieveGenre(name);
+	public ModelAndView loadPageEditGenre(@RequestParam("name") String id) {
+		Genre genreToEdit = getGenreService().retrieveGenre(id);
 		return new ModelAndView("/genre/editGenre", "genre", genreToEdit);
 	}
 
