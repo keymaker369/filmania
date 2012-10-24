@@ -23,7 +23,7 @@
 		<display:column property="name" title="" />
 		<display:column title="select one">
 			<sf:checkbox path="allGenres[${genre_rowNum - 1}].assigned"/>
-			<sf:hidden path="allGenres[${genre_rowNum - 1}].name"/>
+			<sf:hidden path="allGenres[${genre_rowNum - 1}].id"/>
 		</display:column>
 	</display:table>
 	<input type="submit" name="saveNewMovie" value="save" />

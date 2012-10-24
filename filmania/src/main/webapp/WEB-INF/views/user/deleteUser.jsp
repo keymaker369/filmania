@@ -9,7 +9,7 @@
 <body>
 	Are you sure you wont to delete user with username: ${user.username}?
 	<sf:form action="/filmania/user/deleteUser" method="POST" modelAttribute="user" >
-		<sf:hidden path="username"/>
+		<sf:hidden path="id"/>
 		<input type="submit" name="delete" value="Yes"/>
 		<input type="submit" name="No" value="No"/>
 	</sf:form>
