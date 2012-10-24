@@ -53,10 +53,10 @@
 			</c:choose>
 		</display:column>
 		<display:column>
-			<a href='<c:url value="/user/edit?username=${user.username}"/>'>edit</a>
+			<a href='<c:url value="/user/edit?id=${user.id}"/>'>edit</a>
 		</display:column>
 				<display:column>
-			<a href='<c:url value="/user/deleteUser?username=${user.username}"/>'>delete</a>
+			<a href='<c:url value="/user/deleteUser?id=${user.id}"/>'>delete</a>
 		</display:column>
 	</display:table>
 
