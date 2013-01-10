@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.seke.filmania.dao.GenreDAO;
 import org.seke.filmania.dao.UserDAO;
-import org.seke.filmania.dao.UserDaolMockImpl;
 import org.seke.filmania.domain.User;
 import org.seke.filmania.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,43 +100,6 @@ public class UserServiceTest {
 		}
 	}
 	
-//	
-	@Test
-	public void saberiDvaBrojaTest(){
-		int actualResult = userServiceImplUnderTest.saberi(3, 6);
-		int expectedResult = 9;
-		assertSame(expectedResult, actualResult);
-	}
-	
-	@Test
-	public void podeliDvaBrojaTest(){
-		int actualResult = userServiceImplUnderTest.podeli(6, 3);
-		int expectedResult = 2;
-		assertSame(expectedResult, actualResult);
-	}
-	
-	@Test(expected = ArithmeticException.class)
-	public void podeliSaNulomTest(){
-		userServiceImplUnderTest.podeli(6, 0);
-	}
-	
-//	@Test
-//	public void padaTest(){
-//		fail("Not implemented yet");
-//	}
-	
-//	@Test
-//	public void vratiKosrisnickaImenaKorisnikaTest() {
-//		List<String> listaKosrisnickihImena = userServiceImplUnderTest.vratiKosrisnickaImenaKorisnika();
-//		
-//		assertTrue(listaKosrisnickihImena.size() == 2);
-//		
-//		for (String korisnickoIme : listaKosrisnickihImena) {
-//			System.out.println(korisnickoIme);
-//			assertTrue(korisnickoIme.contains(": "));
-//		}
-//		
-//	}
 	
 	@Test
 	public void vratiKorisnikeTest() {
