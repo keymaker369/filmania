@@ -84,22 +84,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return getUserDAO().getUser(username);
 	}
 
-	@Override
-	public int saberi(int a, int b) {
-		return a + b;
-	}
-
-	@Override
-	public int podeli(int a, int b)  throws ArithmeticException {
-		return a/b;
-	}
-
-	public List<String> vratiKosrisnickaImenaKorisnika() {
-		List<String> listaKosrisnickihImena = new ArrayList<String>();
-		List<User> useri = userDAO.getAllUsers();
-		for (User user : useri) {
-			listaKosrisnickihImena.add("username: " + user.getUsername());
-		}
-		return listaKosrisnickihImena;
-	}
 }
