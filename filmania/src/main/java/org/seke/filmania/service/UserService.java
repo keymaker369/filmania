@@ -43,12 +43,5 @@ public interface UserService {
 	 */
 	public void deleteUser(String username);
 	
-	public int saberi(int a, int b);
-	
-	public int podeli(int a, int b) throws ArithmeticException;
-	
-	public List<String> vratiKosrisnickaImenaKorisnika();
-	
-	
 	
 }
