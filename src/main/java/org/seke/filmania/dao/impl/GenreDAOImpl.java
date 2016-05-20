@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 
 import org.seke.filmania.dao.GenreDAO;
 import org.seke.filmania.domain.Genre;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.stereotype.Repository;
 
 /**

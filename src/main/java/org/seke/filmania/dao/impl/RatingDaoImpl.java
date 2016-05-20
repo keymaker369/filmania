@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import org.seke.filmania.dao.RatingDAO;
 import org.seke.filmania.domain.Rating;
 import org.seke.filmania.domain.RatingId;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "ratingDAO")

@@ -7,7 +7,6 @@ import javax.persistence.PersistenceContext;
 
 import org.seke.filmania.dao.MovieDAO;
 import org.seke.filmania.domain.Movie;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.stereotype.Repository;
 
 /**

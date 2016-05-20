@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @NamedQueries({ @NamedQuery(name = User.GET_USER_BY_ID, 
@@ -199,12 +199,12 @@ public class User implements UserDetails {
 		Collection<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
 		
 		if (role == Role.MEMBER) {
-			authorities.add(new GrantedAuthorityImpl(role.toString()));
+			authorities.add(new SimpleGrantedAuthority(role.toString()));
 		}
 		
 		if (role == Role.ADMIN) {
-			authorities.add(new GrantedAuthorityImpl(Role.MEMBER.toString()));
-			authorities.add(new GrantedAuthorityImpl(role.toString()));
+			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.toString()));
+			authorities.add(new SimpleGrantedAuthority(role.toString()));
 		}
 		
 		return authorities;

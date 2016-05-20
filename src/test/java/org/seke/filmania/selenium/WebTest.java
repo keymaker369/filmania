@@ -2,14 +2,10 @@ package org.seke.filmania.selenium;
 
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -39,7 +35,7 @@ public class WebTest {
 		driver.quit();
 	}
 	
-	@Test
+	//@Test
 	public void pageTitleAfterSearchShouldBeginWithDrupal() throws IOException {
 
 		assertEquals("The page title should equal Google at the start of the test.", "Google", driver.getTitle());

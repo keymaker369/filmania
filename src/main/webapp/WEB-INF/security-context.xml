@@ -3,14 +3,16 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	   xmlns="http://www.springframework.org/schema/security"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	   					   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   					   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 						   http://www.springframework.org/schema/security 
-						   http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+						   http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+						   
+<http pattern="/login/**" security="none"/>
+<http pattern="/resources/**" security="none"/>
+<http pattern="/decorators/**" security="none"/>						   
+						   
 <http auto-config="true" use-expressions="true" >
 	
-		<intercept-url pattern="/login" filters="none"/>
-		<intercept-url pattern="/resources/*" filters="none" />
-		<intercept-url pattern="/decorators/*" filters="none" />
 		<intercept-url pattern="/genre/add" access="hasRole('MEMBER')" />
 		<intercept-url pattern="/genre/editGenre" access="hasRole('MEMBER')" />
 		<intercept-url pattern="/genre/genres" access="hasRole('MEMBER')" />
