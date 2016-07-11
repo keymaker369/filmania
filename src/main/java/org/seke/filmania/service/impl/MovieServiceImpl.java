@@ -12,19 +12,25 @@ import org.seke.filmania.domain.Movie;
 import org.seke.filmania.domain.User;
 import org.seke.filmania.model.GenreBean;
 import org.seke.filmania.model.MovieBean;
-import org.seke.filmania.service.CommentService;
 import org.seke.filmania.service.GenreService;
 import org.seke.filmania.service.MovieService;
 import org.seke.filmania.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MovieServiceImpl implements MovieService {
 
+	@Autowired
 	private MovieDAO movieDAO;
 
+	@Autowired
 	private GenreService genreService;
 
+	@Autowired
 	private UserService userService;
 	
+	@Autowired
 	private CommentDAO commentDAO;
 
 	public void saveMovie(MovieBean movieBean) {

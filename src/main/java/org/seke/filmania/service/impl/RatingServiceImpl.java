@@ -7,12 +7,17 @@ import org.seke.filmania.dao.RatingDAO;
 import org.seke.filmania.dao.RatingService;
 import org.seke.filmania.domain.Movie;
 import org.seke.filmania.domain.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class RatingServiceImpl implements RatingService {
 
+	@Autowired
 	private RatingDAO ratingDAO;
 
+	@Autowired
 	private MovieDAO movieDAO;
 
 	@Transactional

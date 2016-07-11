@@ -8,6 +8,8 @@ import org.seke.filmania.domain.Genre;
 import org.seke.filmania.model.GenreBean;
 import org.seke.filmania.service.GenreService;
 import org.seke.filmania.utils.GenreUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -16,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nenad.seke
  * 
  */
+@Service
 public class GenreServiceImpl implements GenreService {
 
+	@Autowired
 	private GenreDAO genreDao;
 
 	/*
