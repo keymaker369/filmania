@@ -1,5 +1,7 @@
 package org.seke.filmania.config;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
 @ComponentScan(basePackages = { "org.seke.filmania.service.impl",
@@ -28,7 +31,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public BasicDataSource dataSource() {
+	public DataSource dataSource() {
 		BasicDataSource bean = new BasicDataSource();
 		bean.setDriverClassName(env.getProperty("db.driver"));
 		bean.setUrl(env.getProperty("db.url"));
@@ -36,6 +39,14 @@ public class AppConfig {
 		bean.setPassword(env.getProperty("db.password"));
 		bean.setMaxActive(Integer.parseInt(env.getProperty("db.maxActive")));
 		bean.setInitialSize(Integer.parseInt(env.getProperty("db.initialSize")));
+		return bean;
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+		bean.setDataSource(dataSource());
+		
 		return bean;
 	}
 }
