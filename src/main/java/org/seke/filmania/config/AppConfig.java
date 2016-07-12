@@ -1,52 +1,43 @@
 package org.seke.filmania.config;
 
-import javax.sql.DataSource;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@ComponentScan(basePackages = { "org.seke.filmania.service.impl",
-								"org.seke.filmania.dao.impl"})
-public class AppConfig {
+@Import(value = {JpaConfiguration.class})
+@EnableWebMvc
+@ComponentScan(basePackages = { "org.seke.filmania.controller" })
+public class AppConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-    Environment env;
-	
-	@Bean
-	public PropertyPlaceholderConfigurer placeholderConfig() {
-		PropertyPlaceholderConfigurer bean = new PropertyPlaceholderConfigurer();
-		Resource[] resources = new ClassPathResource[]
-			    { new ClassPathResource("db.properties") };
-		bean.setLocations( resources );
-		return bean;
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-	
-	@Bean
-	public DataSource dataSource() {
-		BasicDataSource bean = new BasicDataSource();
-		bean.setDriverClassName(env.getProperty("db.driver"));
-		bean.setUrl(env.getProperty("db.url"));
-		bean.setUsername(env.getProperty("db.username"));
-		bean.setPassword(env.getProperty("db.password"));
-		bean.setMaxActive(Integer.parseInt(env.getProperty("db.maxActive")));
-		bean.setInitialSize(Integer.parseInt(env.getProperty("db.initialSize")));
-		return bean;
+
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
-		bean.setDataSource(dataSource());
-		
+	public InternalResourceViewResolver jspViewResolver() {
+		InternalResourceViewResolver bean = new InternalResourceViewResolver();
+		bean.setViewClass(JstlView.class);
+		bean.setPrefix("/WEB-INF/views/");
+		bean.setSuffix(".jsp");
 		return bean;
 	}
+
+	@Bean(name = "messageSource")
+	public ReloadableResourceBundleMessageSource getMessageSource() {
+		ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+		resource.setBasename("classpath:messages");
+		resource.setDefaultEncoding("UTF-8");
+		return resource;
+	}
+
 }
